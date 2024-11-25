@@ -1,0 +1,2 @@
+class MoviesCommentsController < ApplicationController
+end
