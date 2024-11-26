@@ -1,4 +1,5 @@
-<header class="bg-zinc-800 sticky flex py-3 px-3 items-center mb-4">
+<header class="bg-zinc-800 sticky flex py-4 px-3 items-center mb-4">
+  <%= link_to root_path, class: "flex items-center" do %>
   <svg width="40" height="40" viewBox="0 0 26 26" fill="none" xmlns="http://www.w3.org/2000/svg">
     <g clip-path="url(#clip0_13_478)">
       <path fill-rule="evenodd" clip-rule="evenodd" d="M2.75725 9.09389C2.75725 9.99398 3.12695 10.8077 3.72275 11.3916H3.67634L5.29562 23.1313C5.42106 24.0408 6.1984 24.7183 7.11655 24.7183H18.6179C19.5359 24.7183 20.3132 24.0408 20.4388 23.1313L22.058 11.3916H22.0115C22.6075 10.8077 22.9771 9.99398 22.9771 9.09389C22.9771 7.3173 21.5369 5.87709 19.7603 5.87709C19.5589 5.87709 19.3618 5.8956 19.1706 5.93102C19.2556 5.62111 19.3008 5.29485 19.3008 4.95801C19.3008 2.92762 17.6548 1.28167 15.6244 1.28167C14.5264 1.28167 13.5408 1.76304 12.8672 2.52627C12.1936 1.76304 11.208 1.28167 10.1099 1.28167C8.07955 1.28167 6.4336 2.92762 6.4336 4.95801C6.4336 5.29485 6.47889 5.62111 6.56374 5.93102C6.37257 5.8956 6.17548 5.87709 5.97405 5.87709C4.19746 5.87709 2.75725 7.3173 2.75725 9.09389Z" fill="#FDDC5C"/>
@@ -10,12 +11,13 @@
       </clipPath>
     </defs>
   </svg>
-  <div class="relative pl-2">
-    <p class="font-header uppercase text-3xl relative top-0 left-0">Popcorn</p>
-    <p class="font-header uppercase text-zinc-300 text-2xl absolute top-6 left-16">Planner</p>
+  <div class="relative ml-2">
+    <p class="font-header uppercase text-3xl relative top-2 left-0 m-0 p-0">Popcorn</p>
+    <p class="font-header uppercase text-zinc-300 text-2xl relative bottom-1 left-16 m-0 p-0">Planner</p>
   </div>
+  <% end %>
   <div class="grow"></div>
-    <div class="w-11 h-11 bg-zinc-400 rounded-full flex items-center justify-center border-2">
+    <div class="w-11 h-11 bg-zinc-400 rounded-full flex items-center justify-center border-2 border-yellow-400">
   <% if user_signed_in? %>
 
   <% else %>
