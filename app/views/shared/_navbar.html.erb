@@ -1,0 +1,24 @@
+<% classes = "no-underline w-1/5 h-full text-center text-2xl flex items-center justify-center border-b-4" %>
+<% new_event_classes = "w-1/5 h-full text-center text-5xl flex items-center justify-center border-b-3 border-b-4" %>
+<% unactive_classes = "text-zinc-50 border-zinc-50 bg-gradient-to-t from-zinc-600 to-transparent to-70%" %>
+<% active_classes = "text-yellow-400 border-yellow-400 bg-gradient-to-t from-yellow-100 to-transparent to-70%" %>
+<% new_event_unactive_classes = "border-zinc-50 border-zinc-50 bg-gradient-to-t from-zinc-600 to-transparent to-70% text-yellow-300" %>
+<% new_event_active_classes = "border-yellow-400 bg-gradient-to-t from-yellow-100 to-transparent to-70% text-yellow-500" %>
+
+<nav class="absolute bottom-0 flex w-full h-16 items-center lg:w-128">
+  <%= link_to root_path, class: "#{classes} #{current_page?(root_path) ? active_classes : unactive_classes}" do %>
+    <i class="fa-solid fa-house"></i>
+  <% end %>
+  <%= link_to groups_path, class: "#{classes} #{controller_name == 'groups' ? active_classes : unactive_classes}" do %>
+    <i class="fa-solid fa-users"></i>
+  <% end %>
+  <%= link_to new_event_path, class: "#{new_event_classes} #{controller_name == 'events' && action_name == 'new' ? new_event_active_classes : new_event_unactive_classes}" do %>
+    <i class="fa-regular fa-square-plus"></i>
+  <% end %>
+  <%= link_to events_path, class: "#{classes} #{controller_name == 'events' && action_name != 'new' ? active_classes : unactive_classes}" do %>
+    <i class="fa-solid fa-calendar"></i>
+  <% end %>
+  <%= link_to movies_path, class: "#{classes} #{controller_name == 'movies' ? active_classes : unactive_classes}" do %>
+    <i class="fa-solid fa-film"></i>
+  <% end %>
+</nav>
