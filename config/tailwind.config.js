@@ -11,6 +11,11 @@ module.exports = {
     extend: {
       fontFamily: {
         sans: ['Inter var', ...defaultTheme.fontFamily.sans],
+        header: ['Russo One', 'Inter var', ...defaultTheme.fontFamily.sans],
+      },
+      spacing: {
+        '128': '32rem',
+        '256': '50rem'
       },
     },
   },

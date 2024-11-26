@@ -1,19 +1,9 @@
 Rails.application.routes.draw do
-  get 'movies/index'
-  get 'movies/show'
-  get 'events/index'
-  get 'events/show'
-  get 'events/new'
-  get 'events/create'
-  get 'groups/index'
-  get 'groups/show'
-  get 'groups/new'
-  get 'groups/edit'
-  get 'groups/create'
-  get 'groups/update'
-  get 'groups/destroy'
   devise_for :users
   root to: "pages#home"
+  resources :groups, only: [:index, :show, :new, :create, :delete]
+  resources :events, only: [:index, :show, :new, :create, :delete]
+  resources :movies, only: [:index, :show]
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.

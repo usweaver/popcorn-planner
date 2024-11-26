@@ -1,19 +1,27 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>PopcornPlanner</title>
+    <title>Popcorn Planner</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
     <%= stylesheet_link_tag "tailwind", "inter-font", "data-turbo-track": "reload" %>
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Russo+One&display=swap" rel="stylesheet">
+    <%= favicon_link_tag asset_path('logo.png') %>
   </head>
-  <body>
-    <main class="container mx-auto mt-28 px-5 flex">
+  <body class="bg-zinc-900 text-zinc-50 p-0 m-0 font-sans lg:flex lg:items-center lg:min-h-screen">
+    <div class="mx-auto flex flex-col h-dvh relative lg:w-128 lg:h-256 lg:outline lg:outline-offset-1 lg:outline-8 lg:outline-zinc-950 lg:rounded-md">
+    <%= render "shared/header"%>
+    <main class="px-3">
       <%= yield %>
       <p class="notice"><%= notice %></p>
       <p class="alert"><%= alert %></p>
     </main>
+    <%= render "shared/navbar"%>
+    </div>
   </body>
 </html>
