@@ -1,7 +1,7 @@
 require 'open-uri'
 require "json"
 
-puts "On reset la db !"
+puts "Reset de la DB !"
 
 Member.destroy_all
 Event.destroy_all
@@ -10,7 +10,7 @@ Movie.destroy_all
 User.destroy_all
 Group.destroy_all
 
-puts "On créer les users !"
+puts "Création des Users !"
 
 users = [
 {
@@ -56,9 +56,9 @@ users.each do |user|
   new_user.save!
   photos.delete(user_image)
 end
-puts "#{User.all.count} crée"
+puts "#{User.all.count} utilisateurs crées"
 
-puts "On créer les groupes avec des utilisateurs !"
+puts "Création des groupes avec des utilisateurs !"
 
 groups = ["Les potos du 69", "Les graines", "Le paquet"]
 photos2 = ["remyShift", "Samsam69004", "usweaver", "lea3738", "Wael-Dev52", "Pereiraadri", "puts-HIROSIE", "Aurelie-bouchon", "ClementTHZ", "AlexandreVlt", "juliavitu"]
@@ -88,6 +88,8 @@ if left_users.any?
   end
 end
 
+puts "Création des événements"
+
 events = ["Popcorn & Paillettes", "Ciné-Sieste : On Dort Pas, Promis !", "Clap & Chill", "Projecteur Fou", "Les Oscars de la Rigolade", "Film, Bouffe & Bavardages", "Ciné'Marathon : Survivrez-vous ?", "Action ! Mais Que Pour les Chips", "Le Festival du Canapé", "Ciné-Quizz Party : Lumières, Caméra, Questions !"]
 events.each do |event_name|
 
@@ -97,10 +99,9 @@ events.each do |event_name|
   event = Event.new(name: event_name, date: Date.today, user: user, group: group)
 
   event.save!
-
-  puts "#{event.name} créer par #{Event.last.user.first_name} #{Event.last.user.last_name} pour #{group.name}"
 end
 
+puts "Parsing de l'API"
 
 url ="https://api.themoviedb.org/3/movie/now_playing?language=fr-FR&api_key=#{ENV['TMDB_API_KEY']}&page=1"
 movie_serialized = URI.parse(url).read
@@ -113,9 +114,12 @@ results.each do |movie|
   movie.save!
 end
 
+puts "ajout des films aux évènements"
+
 Event.all.each do |event|
   movies = Movie.all
   movies.each do |movie|
     MovieEvent.create!(event: event, movie: movie)
   end
+  puts "#{event.name} crée par #{event.user.first_name} pour #{event.group.name} - #{event.movies.count} films proposés"
 end
