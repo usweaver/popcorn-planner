@@ -7,7 +7,11 @@
     <% @pending_events.each do |event| %>
       <%= link_to event_path(event) do %>
         <div class="bg-zinc-800 w-100 px-4 py-3 rounded-md flex items-center">
-          <%= cl_image_tag event.user.profile_picture.key, height: 44, width: 44, crop: :fill, class: "w-11 h-11 bg-zinc-400 rounded-full flex items-center justify-center border-2 border-yellow-400 mr-3" %>
+          <% if event.user.profile_picture.attached? %>
+            <%= cl_image_tag event.user.profile_picture.key, height: 44, width: 44, crop: :fill, class: "w-11 h-11 bg-zinc-400 rounded-full flex items-center justify-center border-2 border-yellow-400 mr-3" %>
+          <% else %>
+            <%= image_tag "default_image.png", class: "w-11 h-11 bg-zinc-400 rounded-full flex items-center justify-center border-2 border-yellow-400" %>
+          <% end %>
           <div>
             <h3><%= event.user.first_name %></h3>
             <p class="text-sm font-bold"><%= event.name %></p>
@@ -27,17 +31,21 @@
   <div class="w-100 flex flex-col gap-y-2 mb-8">
     <% @done_events.each do |event| %>
       <%= link_to event_path(event) do %>
-      <div class="bg-zinc-800 w-100 px-4 py-3 rounded-md flex items-center">
-        <%= cl_image_tag event.user.profile_picture.key, height: 44, width: 44, crop: :fill, class: "w-11 h-11 bg-zinc-400 rounded-full flex items-center justify-center border-2 border-yellow-400 mr-3" %>
-        <div>
-          <h3><%= event.user.first_name %></h3>
-          <p class="text-sm font-bold"><%= event.name %></p>
-          <p class="text-sm"><%=I18n.l(event.date, format: :long)%></p>
+        <div class="bg-zinc-800 w-100 px-4 py-3 rounded-md flex items-center">
+          <% if event.user.profile_picture.attached? %>
+            <%= cl_image_tag event.user.profile_picture.key, height: 44, width: 44, crop: :fill, class: "w-11 h-11 bg-zinc-400 rounded-full flex items-center justify-center border-2 border-yellow-400 mr-3" %>
+          <% else %>
+            <%= image_tag "default_image.png", class: "w-11 h-11 bg-zinc-400 rounded-full flex items-center justify-center border-2 border-yellow-400" %>
+          <% end %>
+          <div>
+            <h3><%= event.user.first_name %></h3>
+            <p class="text-sm font-bold"><%= event.name %></p>
+            <p class="text-sm"><%=I18n.l(event.date, format: :long)%></p>
+          </div>
+          <div class="grow"></div>
+          <i class="fa-solid fa-angle-right text-yellow-400 mr-2"></i>
         </div>
-        <div class="grow"></div>
-        <i class="fa-solid fa-angle-right text-yellow-400 mr-2"></i>
-      </div>
+      <% end %>
     <% end %>
-  <% end %>
-</div>
+  </div>
 <% end %>
