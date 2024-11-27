@@ -3,8 +3,17 @@
 @tailwind utilities;
 
 @layer base {
+  body {
+    @apply font-sans;
+  }
   h1 {
-    @apply font-header uppercase text-center;
+    @apply font-header uppercase text-center text-2xl mb-4;
+  }
+  h2 {
+    @apply font-header uppercase text-lg mb-2;
+  }
+  h3 {
+    @apply text-lg text-yellow-400 font-bold mb-0;
   }
 }
 /*
