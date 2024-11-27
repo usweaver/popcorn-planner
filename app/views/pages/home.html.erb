@@ -56,8 +56,33 @@
       <div class="grow"></div>
       <i class="fa-solid fa-angle-right text-yellow-400 mr-2"></i>
     </div>
+    <div class="bg-zinc-800 w-100 px-4 py-3 rounded-md flex items-center">
+      <div class="w-11 h-11 bg-zinc-400 rounded-full flex items-center justify-center border-2 border-yellow-400 mr-3">
+        <i class="fa-solid fa-user text-xl"></i>
+      </div>
+      <div>
+        <h3>Clément</h3>
+        <p class="text-sm font-bold">Soirée Seigneur des Anneaux</p>
+        <p class="text-sm">02 Décembre 2024</p>
+      </div>
+      <div class="grow"></div>
+      <i class="fa-solid fa-angle-right text-yellow-400 mr-2"></i>
+    </div>
+    <div class="bg-zinc-800 w-100 px-4 py-3 rounded-md flex items-center">
+      <div class="w-11 h-11 bg-zinc-400 rounded-full flex items-center justify-center border-2 border-yellow-400 mr-3">
+        <i class="fa-solid fa-user text-xl"></i>
+      </div>
+      <div>
+        <h3>Clément</h3>
+        <p class="text-sm font-bold">Soirée Seigneur des Anneaux</p>
+        <p class="text-sm">02 Décembre 2024</p>
+      </div>
+      <div class="grow"></div>
+      <i class="fa-solid fa-angle-right text-yellow-400 mr-2"></i>
+    </div>
   </div>
 </div>
 <% else %>
-<h1><span class="text-zinc-400">Merci de vous connecter</h1>
+<h1>Merci de vous connecter</h1>
+<%= link_to "Se connecter", new_user_session_path, class: "font-header px-4 py-2 bg-yellow-400 uppercase mx-auto text-zinc-800 rounded-md" %>
 <% end %>
