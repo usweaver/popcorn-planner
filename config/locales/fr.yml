@@ -1,11 +1,16 @@
 fr:
   date:
     formats:
-      default: "%d/%m/%Y"    # 26/11/2024
-      short: "%d %b"         # 26 nov.
-      long: "%d %B %Y"       # 26 novembre 2024
+      default: "%d/%m/%Y" # 26/11/2024
+      short: "%d %b" # 26 nov.
+      long: "%d %B %Y" # 26 novembre 2024
   time:
     formats:
       default: "%d/%m/%Y %H:%M" # 26/11/2024 15:30
-      short: "%d %b %H:%M"      # 26 nov. 15:30
-      long: "%d %B %Y à %H:%M"  # 26 novembre 2024 à 15:30
+      short: "%d %b %H:%M" # 26 nov. 15:30
+      long: "%d %B %Y à %H:%M" # 26 novembre 2024 à 15:30
+  devise:
+    sessions:
+      user:
+        signed_in: "Vous êtes connecté."
+        signed_out: "Vous êtes déconnecté."

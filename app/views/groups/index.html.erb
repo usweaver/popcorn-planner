@@ -25,9 +25,9 @@
 
                 <% group.users.first(6).each do |user| %>
                   <% if user.profile_picture.attached? %>
-                    <%= cl_image_tag user.profile_picture.key, height: 28, width: 28, crop: :fill, class: "w-7 h-7 bg-zinc-400 rounded-full flex items-center justify-center border-2 border-yellow-400" %>
+                    <%= cl_image_tag user.profile_picture.key, height: 28, width: 28, crop: :fill, class: "w-7 h-7 bg-zinc-400 rounded-full flex items-center justify-center border border-yellow-400" %>
                   <% else %>
-                    <%= image_tag "default_image.png", class: "w-7 h-7 bg-zinc-400 rounded-full flex items-center justify-center border-2 border-yellow-400" %>
+                    <%= image_tag "default_image.png", class: "w-7 h-7 bg-zinc-400 rounded-full flex items-center justify-center border border-yellow-400" %>
                   <% end %>
                 <% end %>
               </div>
