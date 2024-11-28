@@ -14,8 +14,12 @@
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v6.1.2/css/all.css">
     <%= favicon_link_tag asset_path('logo.png') %>
     <link rel="manifest" href="/manifest.json">
+    <link href='https://api.mapbox.com/mapbox-gl-js/v2.16.0/mapbox-gl.css' rel='stylesheet' />
+    <script src='https://api.mapbox.com/mapbox-gl-js/v2.16.0/mapbox-gl.js'></script>
+
   </head>
   <body class="bg-zinc-900 text-zinc-50 p-0 m-0 lg:flex lg:items-center lg:min-h-screen">
+    <script src="https://unpkg.com/@mapbox/mapbox-sdk/umd/mapbox-sdk.min.js"></script>
     <div class="mx-auto flex flex-col lg:w-128 lg:h-256 lg:outline lg:outline-offset-1 lg:outline-8 lg:outline-zinc-950 lg:rounded-md">
     <%= render "shared/header"%>
     <main class="px-3 flex flex-col h-full justify-center pb-16">
