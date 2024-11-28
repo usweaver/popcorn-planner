@@ -13,7 +13,7 @@ export default class extends Controller {
 
     this.map = new mapboxgl.Map({
       container: this.element,
-      style: "mapbox://styles/mapbox/streets-v12"
+      style: "mapbox://styles/mapbox/dark-v10"
     })
 
     this.#addMarkersToMap()
@@ -32,9 +32,9 @@ export default class extends Controller {
       console.log('MAP:', this.map)
 
       new mapboxgl.Marker()
-        .setLngLat([4.835235, 45.769531])
+        .setLngLat([ marker.lng, marker.lat ])
         .addTo(this.map)
-        // .setPopup(popup)
+        .setPopup(popup)
 
     });
   }

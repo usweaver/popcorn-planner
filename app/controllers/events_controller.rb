@@ -8,6 +8,7 @@ class EventsController < ApplicationController
     # @movie = Movie.find(params[:movie_id])
     @movies = Movie.all
     @user = @event.user
+    @users = User.all
     @markers = [{
       lat: @user.latitude,
       lng: @user.longitude,
