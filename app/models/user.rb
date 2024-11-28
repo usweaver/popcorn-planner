@@ -1,6 +1,8 @@
 class User < ApplicationRecord
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
+  geocoded_by :full_address
+  after_validation :geocode, if: :will_save_change_to_address?
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
   has_many :events
@@ -9,8 +11,14 @@ class User < ApplicationRecord
   has_many :votes
   has_one_attached :profile_picture
 
-  def invited_events
-    groups_ids = self.groups.ids
-    invited_events = Event.where(group_id: self.groups.ids).where.not(user_id: self.id)
+  def full_address
+    "#{self.address}, #{self.zipcode} #{self.city}"
+  end
+
+  private
+
+  # Vérifie si une des colonnes d'adresse a changé
+  def will_save_change_to_address_components?
+    will_save_change_to_address? || will_save_change_to_zipcode? || will_save_change_to_city?
   end
 end
