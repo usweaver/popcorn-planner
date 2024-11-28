@@ -15,17 +15,24 @@
     <%= favicon_link_tag asset_path('logo.png') %>
     <link rel="manifest" href="/manifest.json">
   </head>
-  <body class="bg-zinc-900 text-zinc-50 p-0 m-0 lg:flex lg:items-center lg:min-h-screen">
-    <div class="mx-auto flex flex-col lg:w-128 lg:h-256 lg:outline lg:outline-offset-1 lg:outline-8 lg:outline-zinc-950 lg:rounded-md">
-      <%= render "shared/header"%>
+  <body class="bg-zinc-900 text-zinc-50 p-0 m-0">
+
+    <div class="mx-auto flex flex-col">
+
+      <%= render "shared/header" if user_signed_in?%>
+
       <main class="px-3 flex flex-col min-h-[calc(100vh-10rem)] justify-center mt-24 pt-4 pb-16">
+
         <%= yield %>
+
         <p class="notice"><%= notice %></p>
         <p class="alert"><%= alert %></p>
+
       </main>
-      <% if user_signed_in? %>
-        <%= render "shared/navbar"%>
-      <% end %>
+
+      <%= render "shared/navbar" if user_signed_in? %>
+
     </div>
+
   </body>
 </html>
