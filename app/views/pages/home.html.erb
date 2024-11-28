@@ -1,88 +1,78 @@
 <% if user_signed_in? %>
-<h1><span class="text-zinc-400">Bonjour</span> <%= current_user.first_name %></h1>
-<div class="mb-4">
-  <h2><i class="fa-solid fa-circle-question text-yellow-400"></i> Invitations en attente</h2>
-  <div class="w-100 flex flex-col gap-y-2">
-    <div class="bg-zinc-800 w-100 px-4 py-3 rounded-md flex items-center">
-      <div class="w-11 h-11 bg-zinc-400 rounded-full flex items-center justify-center border-2 border-yellow-400 mr-3">
-        <i class="fa-solid fa-user text-xl"></i>
-      </div>
-      <div>
-        <h3>Invitation de Florian</h3>
-        <p class="text-sm font-bold">Soirée Horreur 🧟‍♂️</p>
-        <p class="text-sm">02 Décembre 2024</p>
-      </div>
-      <div class="grow"></div>
-      <i class="fa-solid fa-angle-right text-yellow-400 mr-2"></i>
+  <h1><span class="text-zinc-400">Bonjour</span> <%= current_user.first_name %></h1>
+  <% if @invitations.count == 0 %>
+    <h2 class="text-center"><i class="fa-solid fa-circle-question text-zinc-400"></i> <span class="text-yellow-400">Aucune</span> Invitation en attente</h2>
+  <% else %>
+    <h2><i class="fa-solid fa-circle-question text-zinc-400"></i> <span class="text-yellow-400"><%= @invitations.count %></span> Invitation<%= "s" if @invitations.count > 1 %> en attente</h2>
+    <div class="w-100 flex flex-col gap-y-2 mb-8">
+      <% @invitations.each do |invitation| %>
+        <div class="bg-zinc-800 w-100 px-4 py-3 rounded-md flex items-center">
+          <% if invitation.user.profile_picture.attached? %>
+            <%= cl_image_tag invitation.user.profile_picture.key, height: 44, width: 44, crop: :fill, class: "w-11 h-11 bg-zinc-400 rounded-full flex items-center justify-center border-2 border-yellow-400 mr-3" %>
+          <% else %>
+            <%= image_tag "default_image.png", class: "w-11 h-11 bg-zinc-400 rounded-full flex items-center justify-center border-2 border-yellow-400" %>
+          <% end %>
+          <div>
+            <h3>Invitation de <%= invitation.user.first_name %></h3>
+            <p class="text-sm font-bold"><%= invitation.name %></p>
+            <p class="text-sm"><%=I18n.l(invitation.date, format: :long)%></p>
+          </div>
+          <div class="grow"></div>
+          <i class="fa-solid fa-angle-right text-yellow-400 mr-2"></i>
+        </div>
+      <% end %>
     </div>
-    <div class="bg-zinc-800 w-100 px-4 py-3 rounded-md flex items-center">
-      <div class="w-11 h-11 bg-zinc-400 rounded-full flex items-center justify-center border-2 border-yellow-400 mr-3">
-        <i class="fa-solid fa-user text-xl"></i>
-      </div>
-      <div>
-        <h3>Invitation de Florian</h3>
-        <p class="text-sm font-bold">Soirée Action 🔫</p>
-        <p class="text-sm">02 Décembre 2024</p>
-      </div>
-      <div class="grow"></div>
-      <i class="fa-solid fa-angle-right text-yellow-400 mr-2"></i>
+  <% end %>
+  <% if @pending_events.count == 0 %>
+    <h2 class="text-center"><i class="fa-solid fa-calendar text-zinc-400"></i> <span class="text-yellow-400">Aucun</span> Évènement à venir</h2>
+  <% else %>
+    <h2><i class="fa-solid fa-calendar text-zinc-400"></i> <span class="text-yellow-400"><%= @pending_events.count %></span> Évènement<%= "s" if @pending_events.count > 1 %> à venir</h2>
+    <div class="w-100 flex flex-col gap-y-2">
+      <% @pending_events.each do |event| %>
+        <%= link_to event_path(event) do %>
+          <div class="bg-zinc-800 w-100 px-4 py-3 rounded-md flex items-center">
+            <% if event.user.profile_picture.attached? %>
+              <%= cl_image_tag event.user.profile_picture.key, height: 44, width: 44, crop: :fill, class: "w-11 h-11 bg-zinc-400 rounded-full flex items-center justify-center border-2 border-yellow-400 mr-3" %>
+            <% else %>
+              <%= image_tag "default_image.png", class: "w-11 h-11 bg-zinc-400 rounded-full flex items-center justify-center border-2 border-yellow-400" %>
+            <% end %>
+            <div>
+              <h3><%= event.user.first_name %></h3>
+              <p class="text-sm font-bold"><%= event.name %></p>
+              <p class="text-sm"><%=I18n.l(event.date, format: :long)%></p>
+            </div>
+            <div class="grow"></div>
+            <i class="fa-solid fa-angle-right text-yellow-400 mr-2"></i>
+          </div>
+        <% end %>
+      <% end %>
     </div>
-  </div>
-</div>
-<div class="mb-4">
-  <h2><i class="fa-solid fa-calendar text-yellow-400"></i> Évènements à venir</h2>
-  <div class="w-100 flex flex-col gap-y-2">
-    <div class="bg-zinc-800 w-100 px-4 py-3 rounded-md flex items-center">
-      <div class="w-11 h-11 bg-zinc-400 rounded-full flex items-center justify-center border-2 border-yellow-400 mr-3">
-        <i class="fa-solid fa-user text-xl"></i>
-      </div>
-      <div>
-        <h3>Alexandre</h3>
-        <p class="text-sm font-bold">Soirée James Bond</p>
-        <p class="text-sm">02 Décembre 2024</p>
-      </div>
-      <div class="grow"></div>
-      <i class="fa-solid fa-angle-right text-yellow-400 mr-2"></i>
-    </div>
-    <div class="bg-zinc-800 w-100 px-4 py-3 rounded-md flex items-center">
-      <div class="w-11 h-11 bg-zinc-400 rounded-full flex items-center justify-center border-2 border-yellow-400 mr-3">
-        <i class="fa-solid fa-user text-xl"></i>
-      </div>
-      <div>
-        <h3>Clément</h3>
-        <p class="text-sm font-bold">Soirée Seigneur des Anneaux</p>
-        <p class="text-sm">02 Décembre 2024</p>
-      </div>
-      <div class="grow"></div>
-      <i class="fa-solid fa-angle-right text-yellow-400 mr-2"></i>
-    </div>
-    <div class="bg-zinc-800 w-100 px-4 py-3 rounded-md flex items-center">
-      <div class="w-11 h-11 bg-zinc-400 rounded-full flex items-center justify-center border-2 border-yellow-400 mr-3">
-        <i class="fa-solid fa-user text-xl"></i>
-      </div>
-      <div>
-        <h3>Clément</h3>
-        <p class="text-sm font-bold">Soirée Seigneur des Anneaux</p>
-        <p class="text-sm">02 Décembre 2024</p>
-      </div>
-      <div class="grow"></div>
-      <i class="fa-solid fa-angle-right text-yellow-400 mr-2"></i>
-    </div>
-    <div class="bg-zinc-800 w-100 px-4 py-3 rounded-md flex items-center">
-      <div class="w-11 h-11 bg-zinc-400 rounded-full flex items-center justify-center border-2 border-yellow-400 mr-3">
-        <i class="fa-solid fa-user text-xl"></i>
-      </div>
-      <div>
-        <h3>Clément</h3>
-        <p class="text-sm font-bold">Soirée Seigneur des Anneaux</p>
-        <p class="text-sm">02 Décembre 2024</p>
-      </div>
-      <div class="grow"></div>
-      <i class="fa-solid fa-angle-right text-yellow-400 mr-2"></i>
-    </div>
-  </div>
-</div>
+  <% end %>
 <% else %>
-<h1>Merci de vous connecter</h1>
-<%= link_to "Se connecter", new_user_session_path, class: "font-header px-4 py-2 bg-yellow-400 uppercase mx-auto text-zinc-800 rounded-md" %>
+
+  <div class="mx-auto flex items-center mb-8">
+
+    <svg width="40" height="40" viewBox="0 0 26 26" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <g clip-path="url(#clip0_13_478)">
+        <path fill-rule="evenodd" clip-rule="evenodd" d="M2.75725 9.09389C2.75725 9.99398 3.12695 10.8077 3.72275 11.3916H3.67634L5.29562 23.1313C5.42106 24.0408 6.1984 24.7183 7.11655 24.7183H18.6179C19.5359 24.7183 20.3132 24.0408 20.4388 23.1313L22.058 11.3916H22.0115C22.6075 10.8077 22.9771 9.99398 22.9771 9.09389C22.9771 7.3173 21.5369 5.87709 19.7603 5.87709C19.5589 5.87709 19.3618 5.8956 19.1706 5.93102C19.2556 5.62111 19.3008 5.29485 19.3008 4.95801C19.3008 2.92762 17.6548 1.28167 15.6244 1.28167C14.5264 1.28167 13.5408 1.76304 12.8672 2.52627C12.1936 1.76304 11.208 1.28167 10.1099 1.28167C8.07955 1.28167 6.4336 2.92762 6.4336 4.95801C6.4336 5.29485 6.47889 5.62111 6.56374 5.93102C6.37257 5.8956 6.17548 5.87709 5.97405 5.87709C4.19746 5.87709 2.75725 7.3173 2.75725 9.09389Z" fill="#FDDC5C"/>
+        <path fill-rule="evenodd" clip-rule="evenodd" d="M7.58245 4.95801C7.58245 3.56212 8.71405 2.43052 10.1099 2.43052C10.8647 2.43052 11.541 2.75988 12.0058 3.2865C12.2239 3.53359 12.5376 3.67513 12.8672 3.67513C13.1968 3.67513 13.5105 3.53359 13.7285 3.2865C14.1933 2.75988 14.8697 2.43052 15.6244 2.43052C17.0203 2.43052 18.1519 3.56212 18.1519 4.95801C18.1519 5.19142 18.1206 5.41567 18.0626 5.62769C17.9582 6.00911 18.0572 6.41742 18.3249 6.70855C18.5925 6.99968 18.9911 7.13269 19.38 7.06065C19.5024 7.03797 19.6295 7.02595 19.7603 7.02595C20.9024 7.02595 21.8283 7.9518 21.8283 9.09389C21.8283 9.51939 21.7005 9.91395 21.4803 10.2427H4.25413C4.03381 9.91395 3.90611 9.51939 3.90611 9.09389C3.90611 7.9518 4.83196 7.02595 5.97405 7.02595C6.10493 7.02595 6.23199 7.03797 6.35446 7.06065C6.74329 7.13269 7.14186 6.99968 7.4095 6.70855C7.67714 6.41742 7.77623 6.00911 7.67182 5.62767C7.61379 5.41569 7.58245 5.19142 7.58245 4.95801ZM2.57811 11.8374C1.97243 11.0883 1.6084 10.1329 1.6084 9.09389C1.6084 6.91626 3.20279 5.11101 5.2879 4.78185C5.3806 2.19856 7.50402 0.132809 10.1099 0.132809C11.135 0.132809 12.086 0.453182 12.8672 0.997898C13.6484 0.453182 14.5994 0.132809 15.6244 0.132809C18.2304 0.132809 20.3539 2.19856 20.4465 4.78185C22.5316 5.11101 24.126 6.91626 24.126 9.09389C24.126 10.1329 23.762 11.0883 23.1563 11.8374L21.5768 23.2882C21.373 24.7663 20.1098 25.8672 18.6179 25.8672H7.11655C5.62456 25.8672 4.36139 24.7663 4.15754 23.2882L2.57811 11.8374ZM11.4886 12.5405V23.5695H14.2458V12.5405H11.4886Z" fill="#8C0909"/>
+      </g>
+      <defs>
+        <clipPath id="clip0_13_478">
+          <rect width="25.7344" height="25.7344" fill="white" transform="translate(0 0.132809)"/>
+        </clipPath>
+      </defs>
+    </svg>
+
+    <div class="relative ml-2 pr-8">
+
+      <p class="font-header uppercase text-3xl relative top-2 left-0 m-0 p-0">Popcorn</p>
+      <p class="font-header uppercase text-zinc-300 text-2xl relative bottom-1 left-16 m-0 p-0">Planner</p>
+
+    </div>
+
+  </div>
+
+  <%= link_to "Se connecter", new_user_session_path, class: "button" %>
+
 <% end %>

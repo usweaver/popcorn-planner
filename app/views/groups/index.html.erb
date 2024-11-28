@@ -1,4 +1,50 @@
-<div>
-  <h1 class="font-header">Groups#index</h1>
-  <p>Find me in app/views/groups/index.html.erb</p>
-</div>
+<h1>Groupes</h1>
+<% if @groups.count == 0 %>
+  <h2 class="text-center"><i class="fa-solid fa-users text-zinc-400"></i> <span class="text-yellow-400">Aucun</span> Groupe</h2>
+<% else %>
+  <h2><i class="fa-solid fa-users text-zinc-400"></i> <span class="text-yellow-400"><%= @groups.count %>
+    </span> Groupe<%= "s" if @groups.count > 1 %>
+  </h2>
+  <div class="w-100 flex flex-col gap-y-2">
+
+    <% @groups.each do |group| %>
+
+      <%= link_to group_path(group) do %>
+
+        <div class="bg-zinc-800 w-100 px-4 py-3 rounded-md flex items-center">
+
+          <%= cl_image_tag group.group_picture.key, height: 44, width: 44, crop: :fill, class: "w-11 h-11 bg-zinc-400 rounded-full flex items-center justify-center border-2 border-yellow-400 mr-3" %>
+
+          <div class="flex flex-col gap-2">
+
+            <h3><%= group.name %></h3>
+
+            <div class="flex gap-2 items-center">
+
+              <div class="flex -space-x-1">
+
+                <% group.users.first(6).each do |user| %>
+                  <% if user.profile_picture.attached? %>
+                    <%= cl_image_tag user.profile_picture.key, height: 28, width: 28, crop: :fill, class: "w-7 h-7 bg-zinc-400 rounded-full flex items-center justify-center border border-yellow-400" %>
+                  <% else %>
+                    <%= image_tag "default_image.png", class: "w-7 h-7 bg-zinc-400 rounded-full flex items-center justify-center border border-yellow-400" %>
+                  <% end %>
+                <% end %>
+              </div>
+
+              <% if group.users.size > 6 %>
+                <span class="text-xs text-justify font-bold">+ <%= group.users.size - 6 %> autres</span>
+              <% end %>
+
+            </div>
+          </div>
+
+          <div class="grow"></div>
+
+          <i class="fa-solid fa-angle-right text-yellow-400 mr-2"></i>
+
+        </div>
+      <% end %>
+    <% end %>
+  </div>
+<% end %>
