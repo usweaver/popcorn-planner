@@ -9,6 +9,7 @@ class User < ApplicationRecord
   has_many :members
   has_many :groups, through: :members
   has_many :votes
+  has_many :movie_comments
   has_one_attached :profile_picture
 
   def full_address
