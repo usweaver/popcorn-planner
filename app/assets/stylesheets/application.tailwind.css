@@ -37,6 +37,26 @@
   .form-group {
     @apply flex flex-col;
   }
+  input {
+    @apply text-zinc-900;
+  }
+  input {
+    @apply bg-zinc-800;
+    @apply rounded-md;
+  }
+
+  @layer components {
+    .button {
+      @apply font-header px-4 py-2 bg-yellow-400 uppercase mx-auto text-zinc-800 rounded-md;
+    }
+    .button-secondary {
+      @apply font-header px-4 py-2 bg-zinc-600 uppercase mx-auto text-zinc-50 rounded-md;
+    }
+    .notice,
+    .alert {
+      @apply font-header px-4 py-2 bg-zinc-600 uppercase mx-auto text-zinc-50 rounded-md text-xs;
+    }
+  }
 }
 /*
 

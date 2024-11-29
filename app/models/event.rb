@@ -5,4 +5,6 @@ class Event < ApplicationRecord
   has_many :movies, through: :movie_events
   has_many :votes, through: :movie_events
   validates :date, :name, presence: true
+
+GROUPES = Group.all.pluck(:name, :id)
 end

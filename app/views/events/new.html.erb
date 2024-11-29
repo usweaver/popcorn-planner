@@ -1,4 +1,64 @@
-<div>
-  <h1 class="font-bold text-4xl">Nouvel évènement</h1>
+<%= form_with model: @event, data: {controller: "radio-button"} do |f| %>
 
+  <div class="flex flex-col gap-2 mb-4">
+    <%= f.label :name, "Quels est le nom de l'évènement ?", class: "form-label" %>
+    <%= f.text_field :name, class:"rounded", class: "form-input" %>
+  </div>
+
+  <div class="flex flex-col gap-2 mb-4">
+    <%= f.label :group_id, "Choisis ton groupe", class: "form-label" %>
+    <%= f.text_field :group_id, id: "selected-group-id", data: {radio_button_target: "input"}, class: "form-input"%>
+
+    <div class="flex flex-col gap-3">
+      <div class="w-100 flex flex-col gap-y-2" >
+        <% Group.all.each do |group| %>
+          <%= render "events/card", group:group %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+
+  <div class="mb-4 flex flex-col gap-2">
+    <div class="grid gap-4 grid-cols-2">
+      <div class="flex flex-col">
+        <%= f.label :date, "Choisis une date", class: "form-label" %>
+        <%= f.date_field :date, class: "form-input" %>
+      </div>
+
+      <div class="flex flex-col">
+        <%= f.label :start_time, "Choisis une heure", class: "form-label" %>
+        <%= f.time_field :start_time, class: "form-input"%>
+      </div>
+    </div>
+  </div>
+
+  <%= f.hidden_field :movie_infos,  id: "selected-movie-input", data: {radio_button_movie_target: "selectMovieInput"} %>
+
+  <%= f.submit "créer l'évènement", class: "button" %>
+
+<% end %>
+
+<div
+    data-controller = "movies-event"
+    data-movies-event-url-value="<%=search_movies_url%>">
+
+  <%= form_with url: search_movies_path, method: :get do %>
+    <div class="flex gap-2 mb-4">
+      <%= text_field_tag :query,
+            params[:query],
+            placeholder: "Rechercher un film",
+            class:"rounded w-full",
+            data: { movies_event_target: "movieInput" }, class: "form-input" %>
+      <%= submit_tag "Rechercher", data: { action: "click->movies-event#search" }, class: "button" %>
+    </div>
+
+    <template data-movies-event-target="cardTemplate">
+      <div id="card">
+        <img src="" alt="" id="img" >
+      </div>
+    </template>
+  <% end %>
+
+  <div data-movies-event-target="cardContainer" class="grid grid-cols-3 gap-4">
+  </div>
 </div>
