@@ -1,88 +1,49 @@
-<% if user_signed_in? %>
 <h1><span class="text-zinc-400">Bonjour</span> <%= current_user.first_name %></h1>
-<div class="mb-4">
-  <h2><i class="fa-solid fa-circle-question text-yellow-400"></i> Invitations en attente</h2>
-  <div class="w-100 flex flex-col gap-y-2">
-    <div class="bg-zinc-800 w-100 px-4 py-3 rounded-md flex items-center">
-      <div class="w-11 h-11 bg-zinc-400 rounded-full flex items-center justify-center border-2 border-yellow-400 mr-3">
-        <i class="fa-solid fa-user text-xl"></i>
-      </div>
-      <div>
-        <h3>Invitation de Florian</h3>
-        <p class="text-sm font-bold">Soirée Horreur 🧟‍♂️</p>
-        <p class="text-sm">02 Décembre 2024</p>
-      </div>
-      <div class="grow"></div>
-      <i class="fa-solid fa-angle-right text-yellow-400 mr-2"></i>
-    </div>
-    <div class="bg-zinc-800 w-100 px-4 py-3 rounded-md flex items-center">
-      <div class="w-11 h-11 bg-zinc-400 rounded-full flex items-center justify-center border-2 border-yellow-400 mr-3">
-        <i class="fa-solid fa-user text-xl"></i>
-      </div>
-      <div>
-        <h3>Invitation de Florian</h3>
-        <p class="text-sm font-bold">Soirée Action 🔫</p>
-        <p class="text-sm">02 Décembre 2024</p>
-      </div>
-      <div class="grow"></div>
-      <i class="fa-solid fa-angle-right text-yellow-400 mr-2"></i>
-    </div>
-  </div>
-</div>
-<div class="mb-4">
-  <h2><i class="fa-solid fa-calendar text-yellow-400"></i> Évènements à venir</h2>
-  <div class="w-100 flex flex-col gap-y-2">
-    <div class="bg-zinc-800 w-100 px-4 py-3 rounded-md flex items-center">
-      <div class="w-11 h-11 bg-zinc-400 rounded-full flex items-center justify-center border-2 border-yellow-400 mr-3">
-        <i class="fa-solid fa-user text-xl"></i>
-      </div>
-      <div>
-        <h3>Alexandre</h3>
-        <p class="text-sm font-bold">Soirée James Bond</p>
-        <p class="text-sm">02 Décembre 2024</p>
-      </div>
-      <div class="grow"></div>
-      <i class="fa-solid fa-angle-right text-yellow-400 mr-2"></i>
-    </div>
-    <div class="bg-zinc-800 w-100 px-4 py-3 rounded-md flex items-center">
-      <div class="w-11 h-11 bg-zinc-400 rounded-full flex items-center justify-center border-2 border-yellow-400 mr-3">
-        <i class="fa-solid fa-user text-xl"></i>
-      </div>
-      <div>
-        <h3>Clément</h3>
-        <p class="text-sm font-bold">Soirée Seigneur des Anneaux</p>
-        <p class="text-sm">02 Décembre 2024</p>
-      </div>
-      <div class="grow"></div>
-      <i class="fa-solid fa-angle-right text-yellow-400 mr-2"></i>
-    </div>
-    <div class="bg-zinc-800 w-100 px-4 py-3 rounded-md flex items-center">
-      <div class="w-11 h-11 bg-zinc-400 rounded-full flex items-center justify-center border-2 border-yellow-400 mr-3">
-        <i class="fa-solid fa-user text-xl"></i>
-      </div>
-      <div>
-        <h3>Clément</h3>
-        <p class="text-sm font-bold">Soirée Seigneur des Anneaux</p>
-        <p class="text-sm">02 Décembre 2024</p>
-      </div>
-      <div class="grow"></div>
-      <i class="fa-solid fa-angle-right text-yellow-400 mr-2"></i>
-    </div>
-    <div class="bg-zinc-800 w-100 px-4 py-3 rounded-md flex items-center">
-      <div class="w-11 h-11 bg-zinc-400 rounded-full flex items-center justify-center border-2 border-yellow-400 mr-3">
-        <i class="fa-solid fa-user text-xl"></i>
-      </div>
-      <div>
-        <h3>Clément</h3>
-        <p class="text-sm font-bold">Soirée Seigneur des Anneaux</p>
-        <p class="text-sm">02 Décembre 2024</p>
-      </div>
-      <div class="grow"></div>
-      <i class="fa-solid fa-angle-right text-yellow-400 mr-2"></i>
-    </div>
-  </div>
-</div>
+<% if @invitations.count == 0 %>
+  <h2 class="text-center"><i class="fa-solid fa-circle-question text-zinc-400"></i> <span class="text-yellow-400">Aucune</span> Invitation en attente</h2>
 <% else %>
-<h1>Merci de vous connecter</h1>
-<%= link_to "Se connecter", new_user_session_path, class: "font-header px-4 py-2 bg-yellow-400 uppercase mx-auto text-zinc-800 rounded-md" %>
+  <h2><i class="fa-solid fa-circle-question text-zinc-400"></i> <span class="text-yellow-400"><%= @invitations.count %></span> Invitation<%= "s" if @invitations.count > 1 %> en attente</h2>
+  <div class="w-100 flex flex-col gap-y-2 mb-8">
+    <% @invitations.each do |invitation| %>
+      <div class="bg-zinc-800 w-100 px-4 py-3 rounded-md flex items-center">
+        <% if invitation.user.profile_picture.attached? %>
+          <%= cl_image_tag invitation.user.profile_picture.key, height: 44, width: 44, crop: :fill, class: "w-11 h-11 bg-zinc-400 rounded-full flex items-center justify-center border-2 border-yellow-400 mr-3" %>
+        <% else %>
+          <%= image_tag "default_image.png", class: "w-11 h-11 bg-zinc-400 rounded-full flex items-center justify-center border-2 border-yellow-400" %>
+        <% end %>
+        <div>
+          <h3>Invitation de <%= invitation.user.first_name %></h3>
+          <p class="text-sm font-bold"><%= invitation.name %></p>
+          <p class="text-sm"><%=I18n.l(invitation.date, format: :long)%></p>
+        </div>
+        <div class="grow"></div>
+        <i class="fa-solid fa-angle-right text-yellow-400 mr-2"></i>
+      </div>
+    <% end %>
+  </div>
+<% end %>
+<% if @pending_events.count == 0 %>
+  <h2 class="text-center"><i class="fa-solid fa-calendar text-zinc-400"></i> <span class="text-yellow-400">Aucun</span> Évènement à venir</h2>
+<% else %>
+  <h2><i class="fa-solid fa-calendar text-zinc-400"></i> <span class="text-yellow-400"><%= @pending_events.count %></span> Évènement<%= "s" if @pending_events.count > 1 %> à venir</h2>
+  <div class="w-100 flex flex-col gap-y-2">
+    <% @pending_events.each do |event| %>
+      <%= link_to event_path(event) do %>
+        <div class="bg-zinc-800 w-100 px-4 py-3 rounded-md flex items-center">
+          <% if event.user.profile_picture.attached? %>
+            <%= cl_image_tag event.user.profile_picture.key, height: 44, width: 44, crop: :fill, class: "w-11 h-11 bg-zinc-400 rounded-full flex items-center justify-center border-2 border-yellow-400 mr-3" %>
+          <% else %>
+            <%= image_tag "default_image.png", class: "w-11 h-11 bg-zinc-400 rounded-full flex items-center justify-center border-2 border-yellow-400" %>
+          <% end %>
+          <div>
+            <h3><%= event.user.first_name %></h3>
+            <p class="text-sm font-bold"><%= event.name %></p>
+            <p class="text-sm"><%=I18n.l(event.date, format: :long)%></p>
+          </div>
+          <div class="grow"></div>
+          <i class="fa-solid fa-angle-right text-yellow-400 mr-2"></i>
+        </div>
+      <% end %>
+    <% end %>
+  </div>
 <% end %>

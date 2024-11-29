@@ -1,0 +1,11 @@
+<div class="relative" data-controller="avatar" >
+
+  <%= cl_image_tag current_user.profile_picture.key, height: 44, width: 44, crop: :fill, class: "w-11 h-11 bg-zinc-400 rounded-full flex items-center justify-center border-2 border-yellow-400", data: { action: "click->avatar#toggle" } %>
+
+  <div class="absolute top-14 right-0 p-2 bg-zinc-600 rounded-md w-60 flex flex-col gap-y-2 opacity-0 transition-opacity duration-300 ease-in-out" data-avatar-target="menu">
+
+    <%= link_to "Se déconnecter", destroy_user_session_path, data: { turbo_method: :delete }, class: "button w-full text-center" %>
+
+  </div>
+
+</div>
