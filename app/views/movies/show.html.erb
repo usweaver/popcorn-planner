@@ -1,4 +1,29 @@
-<div>
-  <h1>Movies#show</h1>
-  <p>Find me in app/views/movies/show.html.erb</p>
+<div class="bg-zinc-800 p-2 rounded-md mb-3">
+  <h1 class="h1 mt-3 mb-3"><i class="fa-solid fa-film mr-2 text-zinc-400"></i><%= @movie.name %></h1>
+  <h2 class="h2 text-center	"><i class="fa-solid fa-calendar text-yellow-400 mr-2"></i>Vu le <%=I18n.l(@events.sort_by(&:date).last.date, format: :long) %></h2>
+  <img src="https://image.tmdb.org/t/p/w500<%=@movie.poster_url%>" class="rounded-md shadow-lg mb-3 w-18 h-25 border border-yellow-400" alt="">
+</div>
+<div class="bg-zinc-800 p-2 rounded-md mb-3">
+  <p class="text-justify text-yellow-400"><i class="fa-solid fa-chevron-right mr-1"></i> <%=@movie.synopsis%></p>
+</div>
+<div class="bg-zinc-800 p-2 rounded-md mb-3">
+<h2 class="h2"><i class="fa-solid fa-comment mr-2 text-zinc-400"></i>Commentaires</h2>
+  <%(@movie.movie_comments).each do |movie_comment|%>
+    <p class="text-yellow-400 font-bold"><%=movie_comment.user.username%></p>
+    <p class="mb-1"><%=movie_comment.comment%></p>
+    <div class="mb-2">
+      <% 5.times do |i| %>
+        <% if i < movie_comment.rating/2 %>
+          <!-- Étoile pleine -->
+          <i class="fas fa-star" style="color: gold;"></i>
+        <% elsif i < movie_comment.rating/2 %>
+          <!-- Étoile à moitié pleine -->
+          <i class="fas fa-star-half-alt" style="color: gold;"></i>
+        <% else %>
+          <!-- Étoile vide -->
+          <i class="far fa-star" style="color: gold;"></i>
+        <% end %>
+      <% end %>
+    </div>
+  <% end %>
 </div>
