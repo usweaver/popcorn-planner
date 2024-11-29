@@ -77,4 +77,5 @@ Rails.application.configure do
   config.action_controller.raise_on_missing_callback_actions = true
 
   config.hosts << "social-recently-piglet.ngrok-free.app"
+  config.hosts << "gently-pleasing-hagfish.ngrok-free.app"
 end
