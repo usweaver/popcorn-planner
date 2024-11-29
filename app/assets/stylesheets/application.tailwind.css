@@ -54,7 +54,7 @@
     }
     .notice,
     .alert {
-      @apply font-header px-4 py-2 bg-zinc-600 uppercase mx-auto text-zinc-50 rounded-md text-xs;
+      @apply text-zinc-50 font-bold text-xs;
     }
   }
 }

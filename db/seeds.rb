@@ -138,7 +138,8 @@ results = movie_data["results"]
 results.each do |movie|
   movie = Movie.new(name: movie["title"],
             synopsis: movie["overview"],
-            poster_url: movie["poster_path"])
+            poster_url: movie["poster_path"],
+            tmdb_id: movie["id"])
   movie.save!
 end
 
