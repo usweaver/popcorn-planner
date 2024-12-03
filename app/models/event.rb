@@ -3,7 +3,7 @@ class Event < ApplicationRecord
   belongs_to :user
   belongs_to :group
   has_many :members, through: :group
-  has_many :votes
+  has_many :votes, dependent: :destroy
 
   # guests => Ce sont les users qui sont invité le créateur n'est pas compris !
   has_many :guests, through: :members, source: :user
