@@ -11,6 +11,12 @@ class User < ApplicationRecord
   has_many :votes
   has_many :movie_comments
   has_one_attached :profile_picture
+  include PgSearch::Model
+  pg_search_scope :search,
+    against: [ :first_name, :last_name, :username ],
+    using: {
+      tsearch: { prefix: true }
+    }
 
   def full_address
     "#{self.address}, #{self.zipcode} #{self.city}"

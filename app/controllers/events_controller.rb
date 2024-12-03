@@ -2,9 +2,9 @@ class EventsController < ApplicationController
 
   def index
     all_invitations = Event.where(group_id: current_user.groups.ids).distinct
-    @pending_events = all_invitations.joins(movie_events: :votes).where('date >= ?', Date.today).order(date: :asc)
-    @done_events = all_invitations.joins(movie_events: :votes).where('date < ?', Date.today).order(date: :desc)
-    @my_events = Event.where(user_id: current_user.id).order(date: :asc)
+    @pending_events = all_invitations.where.not(user_id: current_user.id).where('date >= ?', Date.today).order(date: :asc)
+    @done_events = all_invitations.where('date < ?', Date.today).order(date: :desc)
+    @my_events = Event.where(user_id: current_user.id).where('date >= ?', Date.today).order(date: :asc)
     # @pending_events = []
     # @done_events = []
   end

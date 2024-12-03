@@ -40,7 +40,6 @@ users = [
   }
 ]
 
-
 users.each do |user|
   file = URI.parse("https://github.com/#{user[:profile_picture]}.png").open
   new_user = User.new(
@@ -104,27 +103,39 @@ events.each do |event_name|
 
   user = User.all.sample
   group = user.groups.sample
+  date = Date.today + rand(1..10).days
+  datetime = Time.new(date.year, date.month, date.day, 20, 0, 0)
 
-  event = Event.new(name: event_name, date: Date.today + rand(1..10).days, user: user, group: group)
+  event = Event.new(name: event_name, date: datetime, user: user, group: group)
 
   event.save!
+
+  event.launch
 end
 
 user = User.where(last_name: "Valentin")[0]
 group = Group.where(name: "Les graines")[0]
-event = Event.new(name: "Best Movies", date: Date.today + rand(1..10).days, user: user, group: group)
+date = Date.today + rand(1..10).days
+datetime = Time.new(date.year, date.month, date.day, 20, 0, 0)
+event = Event.new(name: "Best Movies", date: datetime, user: user, group: group)
 
 event.save!
+
+event.launch
 
 past_events = ["Action ! Mais Que Pour les Chips", "Le Festival du Canapé", "Ciné-Quizz Party : Lumières, Caméra, Questions !", "Film, Bouffe & Bavardages", "Ciné'Marathon : Survivrez-vous ?", "Les Oscars de la Rigolade"]
 past_events.each do |event_name|
 
   user = User.all.sample
   group = user.groups.sample
+  date = Date.today - rand(10..30).days
+  datetime = Time.new(date.year, date.month, date.day, 20, 0, 0)
 
-  event = Event.new(name: event_name, date: Date.today - rand(10..30).days, user: user, group: group)
+  event = Event.new(name: event_name, date: datetime, user: user, group: group)
 
   event.save!
+
+  event.launch
 end
 
 puts "#{Event.all.count} Events créés"
@@ -138,8 +149,7 @@ results = movie_data["results"]
 results.each do |movie|
   movie = Movie.new(name: movie["title"],
             synopsis: movie["overview"],
-            poster_url: movie["poster_path"],
-            tmdb_id: movie["id"])
+            poster_url: movie["poster_path"])
   movie.save!
 end
 
@@ -207,7 +217,10 @@ movie_events.each do |e|
   movie_event = MovieEvent.create!(event: event, movie: movie, selected_movie: e[:selected_movie])
   if e[:selected_movie]
     user = User.where(last_name: "Thorez")[0]
-    Vote.create!(user_id: user.id, movie_event_id: movie_event.id)
+    vote = event.votes.find_by(user: user)
+    vote.movie_event = movie_event
+    vote.save!
+    # Vote.create!(user_id: user.id, movie_event_id: movie_event.id)
   end
 end
 
@@ -230,7 +243,16 @@ past_movie_events.each do |e|
   MovieComment.create!(user_id: users[0].id, comment: "Trop cool! J'ai grave kiffé 😍", rating: 9, movie_event_id: movie_event.id)
   MovieComment.create!(user_id: users[1].id, comment: "C'est bien de la merde! 💩", rating: 2, movie_event_id: movie_event.id)
   MovieComment.create!(user_id: users[2].id, comment: "Ca passe 🫡", rating: 5, movie_event_id: movie_event.id)
-  Vote.create!(user_id: users[0].id, movie_event_id: movie_event.id)
-  Vote.create!(user_id: users[1].id, movie_event_id: movie_event.id)
-  Vote.create!(user_id: users[2].id, movie_event_id: movie_event.id)
+  vote_one = event.votes.find_by(user: users[0])
+  vote_one.movie_event = movie_event
+  vote_one.save!
+  vote_two = event.votes.find_by(user: users[1])
+  vote_two.movie_event = movie_event
+  vote_two.save!
+  vote_three = event.votes.find_by(user: users[2])
+  vote_three.movie_event = movie_event
+  vote_three.save!
+  # Vote.create!(user_id: users[0].id, movie_event_id: movie_event.id)
+  # Vote.create!(user_id: users[1].id, movie_event_id: movie_event.id)
+  # Vote.create!(user_id: users[2].id, movie_event_id: movie_event.id)
 end
