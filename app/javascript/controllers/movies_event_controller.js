@@ -6,6 +6,7 @@ export default class extends Controller {
     "cardTemplate",
     "cardContainer",
     "selectMovieInput",
+    "selectedCardContainer"
   ];
 
   static values = {
@@ -81,7 +82,16 @@ export default class extends Controller {
     const moviePoster = movie.dataset.posterUrl || ""
     const movieSynopsis = movie.dataset.synopsis || ""
     const input = document.getElementById("selected-movie-input")
+    const selectedCardContainer = document.getElementById("selected-card-container")
+    const imgCard = document.createElement("img")
 
+    selectedCardContainer.insertAdjacentElement("beforeend",imgCard)
+    imgCard.src = `https://image.tmdb.org/t/p/original/${moviePoster}`
+    imgCard.classList.add("rounded-lg")
+    console.log(selectedCardContainer);
+
+
+    // imgCard.src = `https://image.tmdb.org/t/p/original/${moviePoster}`;
     movie.classList.add("outline", "outline-yellow-400")
     // this.movieIds.push(movieId)
     input.value += `${movieTitle}**${movieSynopsis}**${moviePoster}---`
