@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_11_29_130310) do
+ActiveRecord::Schema[7.1].define(version: 2024_12_03_090958) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -45,11 +45,10 @@ ActiveRecord::Schema[7.1].define(version: 2024_11_29_130310) do
   create_table "events", force: :cascade do |t|
     t.bigint "user_id", null: false
     t.bigint "group_id", null: false
-    t.date "date"
+    t.datetime "date"
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.time "start_time"
     t.index ["group_id"], name: "index_events_on_group_id"
     t.index ["user_id"], name: "index_events_on_user_id"
   end
@@ -82,7 +81,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_11_29_130310) do
 
   create_table "movie_events", force: :cascade do |t|
     t.bigint "event_id", null: false
-    t.bigint "movie_id", null: false
+    t.bigint "movie_id"
     t.boolean "selected_movie", default: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -124,10 +123,12 @@ ActiveRecord::Schema[7.1].define(version: 2024_11_29_130310) do
   end
 
   create_table "votes", force: :cascade do |t|
-    t.bigint "movie_event_id", null: false
+    t.bigint "movie_event_id"
     t.bigint "user_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "event_id"
+    t.index ["event_id"], name: "index_votes_on_event_id"
     t.index ["movie_event_id"], name: "index_votes_on_movie_event_id"
     t.index ["user_id"], name: "index_votes_on_user_id"
   end
@@ -142,6 +143,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_11_29_130310) do
   add_foreign_key "movie_comments", "users"
   add_foreign_key "movie_events", "events"
   add_foreign_key "movie_events", "movies"
+  add_foreign_key "votes", "events"
   add_foreign_key "votes", "movie_events"
   add_foreign_key "votes", "users"
 end

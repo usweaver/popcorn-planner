@@ -16,7 +16,6 @@ export default class extends Controller {
   };
 
   connect() {
-    console.log("Hello from user_search controller");
     this.timeout = null;
   }
 
