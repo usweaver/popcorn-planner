@@ -11,7 +11,6 @@ class EventsController < ApplicationController
 
   def show
     @event = Event.find(params[:id])
-    # @movie = Movie.find(params[:movie_id])
     @movies = Movie.all
     @user = @event.user
     @users = User.all
@@ -20,6 +19,8 @@ class EventsController < ApplicationController
       lng: @user.longitude,
       # marker_html:"<div class='custom-marker' style='background-color: red; width: 20px; height: 20px; border-radius: 50%;'></div>",
     }]
+
+    @ordered_movies = @event.list_movies.map{|movie| {movie: movie, votes: get_votes(movie, @event)}}.sort_by{|hash| -hash[:votes]}
   end
 
   def new
@@ -88,5 +89,7 @@ class EventsController < ApplicationController
     end
   end
 
-
+  def get_votes(movie, event)
+    movie.events.find_by(id: event.id).votes.where(movie_event_id: event.movie_events.find_by(movie_id: movie.id)).count
+  end
 end

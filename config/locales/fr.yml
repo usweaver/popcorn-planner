@@ -9,6 +9,12 @@ fr:
       default: "%d/%m/%Y %H:%M" # 26/11/2024 15:30
       short: "%d %b %H:%M" # 26 nov. 15:30
       long: "%d %B %Y à %H:%M" # 26 novembre 2024 à 15:30
+  datetime:
+    formats:
+      default: "%d/%m/%Y %H:%M" # 26/11/2024 15:30
+      short: "%d %b %H:%M" # 26 nov. 15:30
+      long: "%d %B %Y à %H:%M" # 26 novembre 2024 à 15:30
+      only_date: "%d %B %Y"
   devise:
     sessions:
       user:
@@ -18,6 +24,7 @@ fr:
       user:
         unauthenticated: "Vous devez vous connecter pour continuer."
         invalid: "Identifiant ou mot de passe invalide."
+        already_authenticated: "Vous êtes déjà connecté."
     registrations:
       user:
         signed_up: "Compte utilisateur créé."

@@ -1,8 +1,8 @@
 <h1>Évènements</h1>
 <% if @pending_events.count == 0 %>
-  <h2 class="text-center"><i class="fa-solid fa-forward text-zinc-400"></i> <span class="text-yellow-400">Aucun</span> Évènement à venir</h2>
+  <h2 class="text-center"><i class="fa-solid fa-forward text-zinc-400 mr-1"></i> <span class="text-yellow-400">Aucun</span> Évènement à venir</h2>
 <% else %>
-  <h2><i class="fa-solid fa-forward text-zinc-400"></i> <span class="text-yellow-400"><%= @pending_events.count %></span> Évènement<%= "s" if @pending_events.count > 1 %> à venir</h2>
+  <h2><i class="fa-solid fa-forward text-zinc-400 mr-1"></i> <span class="text-yellow-400"><%= @pending_events.count %></span> Évènement<%= "s" if @pending_events.count > 1 %> à venir</h2>
   <div class="w-100 flex flex-col gap-y-2 mb-8">
     <% @pending_events.each do |event| %>
       <%= link_to event_path(event) do %>
@@ -25,7 +25,7 @@
   </div>
 <% end %>
 <% if @my_events.present? %>
-  <h2><i class="fa-solid fa-forward text-zinc-400"></i> Chez moi</h2>
+  <h2><i class="fa-solid fa-forward text-zinc-400 mr-1"></i> Chez moi</h2>
   <div class="w-100 flex flex-col gap-y-2 mb-8">
     <% @my_events.each do |event| %>
       <%= link_to event_path(event) do %>
@@ -48,9 +48,9 @@
   </div>
 <% end %>
 <% if @done_events.count == 0 %>
-  <h2 class="text-center"><i class="fa-solid fa-backward text-zinc-400"></i> <span class="text-yellow-400">Aucun</span> Évènement passé</h2>
+  <h2 class="text-center"><i class="fa-solid fa-backward text-zinc-400 mr-1"></i> <span class="text-yellow-400">Aucun</span> Évènement passé</h2>
 <% else %>
-  <h2><i class="fa-solid fa-backward text-zinc-400"></i> <span class="text-yellow-400"><%= @done_events.count %></span> Évènement<%= "s" if @done_events.count > 1 %> passé<%= "s" if @done_events.count > 1 %></h2>
+  <h2><i class="fa-solid fa-backward text-zinc-400 mr-1"></i> <span class="text-yellow-400"><%= @done_events.count %></span> Évènement<%= "s" if @done_events.count > 1 %> passé<%= "s" if @done_events.count > 1 %></h2>
   <div class="w-100 flex flex-col gap-y-2 mb-8">
     <% @done_events.each do |event| %>
       <%= link_to event_path(event) do %>
