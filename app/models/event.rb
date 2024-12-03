@@ -3,6 +3,7 @@ class Event < ApplicationRecord
   belongs_to :user
   belongs_to :group
   has_many :members, through: :group
+  has_many :votes
 
   # guests => Ce sont les users qui sont invité le créateur n'est pas compris !
   has_many :guests, through: :members, source: :user
@@ -16,7 +17,7 @@ class Event < ApplicationRecord
   # utiliser la méthode selected_movie pour avoir une instance du film
   has_many :selected_movies, -> { where movie_events: { selected_movie: true } }, through: :movie_events, source: :movie
 
-  has_many :votes, through: :movie_events
+  has_many :votes
 
   validates :date, :name, presence: true
 
@@ -26,14 +27,9 @@ class Event < ApplicationRecord
   # 1. Créer pour chaque utilisateur une instance de vote et de movie event qui lui appartient
   def launch
     guests.each do |gest|
-      movie_event = MovieEvent.create(
-        event: self,
-        movie: nil
-      )
-
       Vote.create(
-        movie_event: movie_event,
-        user: gest
+        user: gest,
+        event: self
       )
     end
   end
