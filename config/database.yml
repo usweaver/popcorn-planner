@@ -79,6 +79,7 @@ test:
 #
 production:
   <<: *default
-  database: popcorn_planner_production
-  username: popcorn_planner
+  database: <%= ENV["DATABASE_NAME"] %>
+  username: <%= ENV["DATABASE_USER"] %>
+  password: <%= ENV["DATABASE_PASSWORD"] %>
   password: <%= ENV["POPCORN_PLANNER_DATABASE_PASSWORD"] %>
