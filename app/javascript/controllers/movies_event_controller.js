@@ -74,14 +74,16 @@ export default class extends Controller {
 
   choiceMovie(event) {
     const movie = event.currentTarget
+    console.log(movie);
+
     const movieTitle = movie.dataset.title || ""
     const movieId = movie.dataset.id || ""
     const moviePoster = movie.dataset.posterUrl || ""
     const movieSynopsis = movie.dataset.synopsis || ""
     const input = document.getElementById("selected-movie-input")
 
-    movie.classList.add("outline outline-yellow-400")
-    this.movieIds.push(movieId)
+    movie.classList.add("outline", "outline-yellow-400")
+    // this.movieIds.push(movieId)
     input.value += `${movieTitle}**${movieSynopsis}**${moviePoster}---`
   }
 
