@@ -1,8 +1,8 @@
 <h1>Groupes</h1>
 <% if @groups.count == 0 %>
-  <h2 class="text-center"><i class="fa-solid fa-users text-zinc-400"></i> <span class="text-yellow-400">Aucun</span> Groupe</h2>
+  <h2 class="text-center"><i class="fa-solid fa-users text-zinc-400 mr-1"></i> <span class="text-yellow-400">Aucun</span> Groupe</h2>
 <% else %>
-  <h2><i class="fa-solid fa-users text-zinc-400"></i> <span class="text-yellow-400"><%= @groups.count %>
+  <h2><i class="fa-solid fa-users text-zinc-400 mr-1"></i> <span class="text-yellow-400"><%= @groups.count %>
     </span> Groupe<%= "s" if @groups.count > 1 %>
   </h2>
   <div class="w-100 flex flex-col gap-y-2">

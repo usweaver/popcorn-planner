@@ -5,7 +5,7 @@
   <div class="flex flex-col gap-2 mb-4">
 
     <%= f.label :name, class: "form-label" do %>
-      <i class="fa-solid fa-users text-zinc-400"></i> Quel est le nom du groupe ?
+      <i class="fa-solid fa-users text-zinc-400 mr-1"></i> Quel est le nom du groupe ?
     <% end %>
 
     <%= f.text_field :name, class: "form-input", required: true %>
@@ -15,7 +15,7 @@
   <div class="flex flex-col gap-2 mb-4">
 
     <%= f.label :group_picture, class: "form-label" do %>
-      <i class="fa-solid fa-image text-zinc-400"></i> Ajoutez une image pour le groupe
+      <i class="fa-solid fa-image text-zinc-400 mr-1"></i> Ajoutez une image
     <% end %>
 
     <%= f.file_field :group_picture, class: "form-input", required: true %>
@@ -25,7 +25,7 @@
   <div class="flex flex-col gap-2 mb-4" data-controller="user-search" data-user-search-url-value="<%= search_users_url %>">
 
     <%= f.label :group_members, class: "form-label" do %>
-      <i class="fa-solid fa-user-plus text-zinc-400"></i> Choisissez les membres du groupe
+      <i class="fa-solid fa-user-plus text-zinc-400 mr-1"></i> Choisissez les membres
     <% end %>
 
     <%= f.hidden_field :group_members, class: "form-input", data: {user_search_target: "membersInput"}, value: "#{current_user.id}###" %>

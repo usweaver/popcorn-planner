@@ -149,40 +149,37 @@ results = movie_data["results"]
 results.each do |movie|
   movie = Movie.new(name: movie["title"],
             synopsis: movie["overview"],
-            poster_url: movie["poster_path"])
+            poster_url: movie["poster_path"],
+            tmdb_id: movie["id"])
   movie.save!
 end
 
 movies = [
   {
-"original_title": "The Package",
-"overview": "Quand quatre ados partent en camping, un accident malheureux les lance dans une course contre la montre pour sauver le trésor le plus précieux de l'un d'eux.",
-"poster_path": "/qd2MXsQqxKk9uAB87YmWa3nCM2F.jpg",
-"title": "Le paquet",
+overview: "Quand quatre ados partent en camping, un accident malheureux les lance dans une course contre la montre pour sauver le trésor le plus précieux de l'un d'eux.",
+poster_path: "/qd2MXsQqxKk9uAB87YmWa3nCM2F.jpg",
+title: "Le paquet",
 },
 {
-"original_title": "Grave",
-"overview": "Dans la famille de Justine tout le monde est vétérinaire et végétarien. À 16 ans, elle est une adolescente surdouée sur le point d’intégrer l’école véto où sa sœur ainée est également élève. Mais, à peine installés, le bizutage commence pour les premières années. On force Justine à manger de la viande crue. C’est la première fois de sa vie. Les conséquences ne se font pas attendre. Justine découvre sa vraie nature.",
-"poster_path": "/rezrNBKn6xFTOy5uz0zKV2QQD62.jpg",
-"title": "Grave",
+overview: "Dans la famille de Justine tout le monde est vétérinaire et végétarien. À 16 ans, elle est une adolescente surdouée sur le point d’intégrer l’école véto où sa sœur ainée est également élève. Mais, à peine installés, le bizutage commence pour les premières années. On force Justine à manger de la viande crue. C’est la première fois de sa vie. Les conséquences ne se font pas attendre. Justine découvre sa vraie nature.",
+poster_path: "/rezrNBKn6xFTOy5uz0zKV2QQD62.jpg",
+title: "Grave",
 },
 {
-"original_title": "Brice de Nice",
-"overview": "Éternel ado de presque 30 ans, délaissé par un père affairiste et une mère absente, Brice s'est réfugié dans une posture, un « style » avec lesquels il exprime son vrai vécu intrinsèque : Brice est surfeur, winner... comme Bodhi, le héros de POINT BREAK, son film culte, Brice attend donc SA vague... à Nice ! Personne pourtant ne se risque à se moquer de Brice : redoutable bretteur du langage, Brice s'est fait une spécialité de « casser » tout et tout le monde par le truchement de ses reparties verbales. Il fallait bien qu'un jour Brice soit rattrapé par la réalité...",
-"poster_path": "/d8qjZwmXYFseqsXnS7eOSmmgwB9.jpg",
-"title": "Brice de Nice",
+overview: "Éternel ado de presque 30 ans, délaissé par un père affairiste et une mère absente, Brice s'est réfugié dans une posture, un « style » avec lesquels il exprime son vrai vécu intrinsèque : Brice est surfeur, winner... comme Bodhi, le héros de POINT BREAK, son film culte, Brice attend donc SA vague... à Nice ! Personne pourtant ne se risque à se moquer de Brice : redoutable bretteur du langage, Brice s'est fait une spécialité de « casser » tout et tout le monde par le truchement de ses reparties verbales. Il fallait bien qu'un jour Brice soit rattrapé par la réalité...",
+poster_path: "/d8qjZwmXYFseqsXnS7eOSmmgwB9.jpg",
+title: "Brice de Nice",
 },
 {
-"original_title": "White Chicks",
-"overview": "Les ambitieux mais malheureux agents du FBI Marcus et Kevin Copeland sont sur le point de perdre leur travail. Quand on découvre que deux riches héritières mondaines sont sur le point d'être enlevées, l'affaire est confiée à leurs rivaux et Kevin et Marcus sont promus gardes du corps pour escorter ces deux gamines de l'aéroport à leur hôtel dans les Hamptons. Malheureusement, leur gentil toutou cause un accident de la circulation. S'ensuit une bagarre et les deux sœurs se retrouvent légèrement mal en point. Elles refusent d'être vues lors de ce week-end mondain. Apeuré à l'idée de se retrouver au chômage, Kevin va élaborer un plan : Marcus et lui vont se faire passer pour les deux exigeantes divas, se mêler à la crème de la crème des Hamptons et, par la même occasion, piéger les ravisseurs et redorer leur réputation.",
-"poster_path": "/PedA5zKb8Y3nZEHPGx9LwGlfPx.jpg",
-"title": "F.B.I. Fausses Blondes Infiltrées",
+overview: "Les ambitieux mais malheureux agents du FBI Marcus et Kevin Copeland sont sur le point de perdre leur travail. Quand on découvre que deux riches héritières mondaines sont sur le point d'être enlevées, l'affaire est confiée à leurs rivaux et Kevin et Marcus sont promus gardes du corps pour escorter ces deux gamines de l'aéroport à leur hôtel dans les Hamptons. Malheureusement, leur gentil toutou cause un accident de la circulation. S'ensuit une bagarre et les deux sœurs se retrouvent légèrement mal en point. Elles refusent d'être vues lors de ce week-end mondain. Apeuré à l'idée de se retrouver au chômage, Kevin va élaborer un plan : Marcus et lui vont se faire passer pour les deux exigeantes divas, se mêler à la crème de la crème des Hamptons et, par la même occasion, piéger les ravisseurs et redorer leur réputation.",
+poster_path: "/PedA5zKb8Y3nZEHPGx9LwGlfPx.jpg",
+title: "F.B.I. Fausses Blondes Infiltrées",
 }
 ]
 movies.each do |movie|
-  movie = Movie.new(name: movie["title"],
-            synopsis: movie["overview"],
-            poster_url: movie["poster_path"])
+  movie = Movie.new(name: movie[:title],
+            synopsis: movie[:overview],
+            poster_url: movie[:poster_path])
   movie.save!
 end
 
