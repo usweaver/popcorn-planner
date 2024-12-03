@@ -34,16 +34,10 @@ class EventsController < ApplicationController
       start_time: event_params["start_time"]
     )
     @event.user = current_user
-    # p event_params
     string_movies = params[:event][:movie_infos].split('#####')
-    p string_movies
     string_movies.each do |movie_infos|
       movie = get_movie(movie_infos)
-
-      MovieEvent.create(
-        movie: movie,
-        event: @event
-      )
+      MovieEvent.create(movie: movie, event: @event)
     end
 
     if @event.save
@@ -51,6 +45,18 @@ class EventsController < ApplicationController
     else
       render :new, status: :unprocessable_entity
     end
+  end
+
+  def create_recap
+    name = params[:name]
+    group = Group.find(params[:group])
+    date = params[:date]
+    time = params[:time].to_time.strftime("%H:%M")
+    imdb_movie = params[:movies_infos].split("---").map { |movie| movie.split("**")[2] }
+
+    render json: {
+      recap_html: render_to_string(partial: "recap", locals: { name: name, group: group, date: date, time: time, movie_posters: imdb_movie }, formats: :html)
+    }
   end
 
   private
@@ -74,4 +80,6 @@ class EventsController < ApplicationController
       )
     end
   end
+
+
 end
