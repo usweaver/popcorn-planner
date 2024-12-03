@@ -14,6 +14,7 @@ export default class extends Controller {
 
   connect() {
     console.log("connected");
+    this.movieIds = []
   }
 
   search(event) {
@@ -72,16 +73,28 @@ export default class extends Controller {
   }
 
   choiceMovie(event) {
-    const movie = event.currentTarget;
-    const movieTitle = movie.dataset.title || "";
-    const moviePoster = movie.dataset.posterUrl || "";
-    const movieSynopsis = movie.dataset.synopsis || "";
-    const input = document.getElementById("selected-movie-input");
-    console.log("Movie title:", movieTitle);
-    console.log("Movie poster:", moviePoster);
-    console.log("Movie synopsis:", movieSynopsis);
+    const movie = event.currentTarget
+    console.log(movie);
 
-    movie.classList.add("outline", "outline-yellow-400", "rounded");
-    input.value += `${movieTitle}**${movieSynopsis}**${moviePoster}#####`;
+    const movieTitle = movie.dataset.title || ""
+    const movieId = movie.dataset.id || ""
+    const moviePoster = movie.dataset.posterUrl || ""
+    const movieSynopsis = movie.dataset.synopsis || ""
+    const input = document.getElementById("selected-movie-input")
+
+    movie.classList.add("outline", "outline-yellow-400")
+    // this.movieIds.push(movieId)
+    input.value += `${movieTitle}**${movieSynopsis}**${moviePoster}---`
   }
+
+  // Créer un tableau de hash, ou chaque hash represente un film
+  // Lors du click vérifier si le film est dans le tableau, si il y est alors
+  // on supprime le faite qu'il soit entouré en jaune,
+  // on le supprime du tableau
+
+  // Si il n'y ai pas alors je l'entoure en jaune
+  // je l'ajoute dans le tableau
+
+  // Lors de l'envoi du formulaire
+  // je construit ma fameuse string à partir des éléments que j'ai dans mon tableau
 }

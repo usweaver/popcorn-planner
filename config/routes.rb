@@ -2,8 +2,13 @@ Rails.application.routes.draw do
   devise_for :users
   get "users/search" => "groups#search_users", as: "search_users"
   root to: "pages#home"
-  resources :groups, only: [:index, :show, :new, :create]
-  resources :events, only: [:index, :show, :new, :create, :delete]
+  resources :groups, only: [:index, :show, :new, :create, :delete]
+  resources :events, only: [:index, :show, :new, :create, :delete] do
+    collection do
+      get "create_recap"
+    end
+  end
+
   resources :movies, only: [:index, :show] do
     collection do
       get "search"
