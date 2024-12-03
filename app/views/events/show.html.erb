@@ -14,14 +14,14 @@
         <%= image_tag(url_for(user.profile_picture), class: "rounded-full size-8 ring-1 ring-yellow-400 shadow-sm") if user.profile_picture.attached? %>
       <% end %>
     </div>
+  </div>
+  <div class="bg-zinc-800 p-2 rounded-md mb-3">
+    <h2><i class="fa-solid fa-film mr-1"></i> Film choisi</h2>
+    <div class="justify-center items-center">
+      <h3 class="h3 mb-3"> <%=movie_selected_path.name%></h3>
+      <%= image_tag("https://image.tmdb.org/t/p/w500#{movie_selected_path.poster_url}", alt: "Poster du film", class: "w-18 h-26 border border-yellow-400 rounded-md") if @movies.find(@event.movie_events[0]["movie_id"]).poster_url.present? %>
     </div>
-    <div class="bg-zinc-800 p-2 rounded-md mb-3">
-      <h2 class="h2"><i class="fa-solid fa-film mr-1 text-zinc-400"></i> Film choisi</h2>
-      <div class="justify-center items-center">
-        <h3 class="h3 mb-3"> <%=movie_selected_path.name%></h3>
-        <%= image_tag("https://image.tmdb.org/t/p/w500#{movie_selected_path.poster_url}", alt: "Poster du film", class: "w-18 h-26 border border-yellow-400 rounded-md") if @movies.find(@event.movie_events[0]["movie_id"]).poster_url.present? %>
-      </div>
-    </div>
+  </div>
   <div class="bg-zinc-800 p-2 rounded-md">
     <h2 class="h2 mb-3"><i class="fa-solid fa-location-dot mr-1"></i>Lieu</h2>
     <h3 class="h3 mb-3"><%=info_user_path.address%> - <%=info_user_path.city%></h3>

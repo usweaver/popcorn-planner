@@ -42,8 +42,10 @@
   }
   input {
     @apply bg-zinc-800;
-    @apply rounded-md;
+    /* @apply rounded-md; */
   }
+
+
 
   @layer components {
     .button {
