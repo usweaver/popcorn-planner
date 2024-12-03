@@ -67,7 +67,7 @@ export default class extends Controller {
     const nameInput = this.nameInputTarget
     const groupInput = this.groupInputTarget
     const dateInput = this.dateInputTarget
-    const timeInput = this.dateInputTarget
+    const timeInput = this.timeInputTarget
     const moviesInput = this.moviesInputTarget
 
     const url = `/events/create_recap?name=${nameInput.value}&group=${groupInput.value}&date=${dateInput.value}&time=${timeInput.value}&movies_infos=${moviesInput.value}`
