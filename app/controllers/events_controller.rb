@@ -28,8 +28,6 @@ class EventsController < ApplicationController
   end
 
   def create
-    date = params[:date]
-    p date
     year = params[:event][:date].split("-")[0]
     month = params[:event][:date].split("-")[1]
     day = params[:event][:date].split("-")[2]
@@ -42,13 +40,14 @@ class EventsController < ApplicationController
       name: event_params["name"],
     )
     @event.user = current_user
-    string_movies = params[:event][:movie_infos].split('#####')
+    string_movies = params[:event][:movie_infos].split('---')
     string_movies.each do |movie_infos|
       movie = get_movie(movie_infos)
       MovieEvent.create(movie: movie, event: @event)
     end
 
     if @event.save
+      @event.launch
       redirect_to events_path
     else
       render :new, status: :unprocessable_entity
