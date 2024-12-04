@@ -53,7 +53,7 @@
       data-movies-event-url-value="<%=search_movies_url%>"
       class="hidden">
       <div class="text-center mb-4">
-        <%= f.hidden_field :movie_infos,  id: "selected-movie-input", data: {radio_button_movie_target: "selectMovieInput", next_form_target: "moviesInput"} %>
+        <%= f.text_field :movie_infos,  id: "selected-movie-input", data: {radio_button_movie_target: "selectMovieInput", next_form_target: "moviesInput"} %>
         <%= f.label :movie_infos, "Selection des films", class: "form-label text-2xl" %>
       </div>
       <div class="grid grid-cols-6 mb-4">
@@ -78,7 +78,7 @@
         <div data-movies-event-target="cardContainer" class="grid grid-cols-3 gap-4 mb-4">
         </div>
 
-        <div id="selected-card-container" data-movies-event-target="selected-card" class="bg-zinc-800 grid grid-cols-6 gap-2 rounded-lg p-2 mt-4">
+        <div class="bg-zinc-800 grid grid-cols-6 gap-2 rounded-lg p-2 mt-4" id="selected-card-container">
         </div>
 
         <div class="button">

@@ -6,7 +6,8 @@ export default class extends Controller {
     "cardTemplate",
     "cardContainer",
     "selectMovieInput",
-    "selectedCardContainer"
+    "selectedCardContainer",
+    "selectedCard"
   ];
 
   static values = {
@@ -83,18 +84,25 @@ export default class extends Controller {
     const movieSynopsis = movie.dataset.synopsis || ""
     const input = document.getElementById("selected-movie-input")
     const selectedCardContainer = document.getElementById("selected-card-container")
+    const div = document.createElement("div")
     const imgCard = document.createElement("img")
 
-    selectedCardContainer.insertAdjacentElement("beforeend",imgCard)
+    selectedCardContainer.insertAdjacentElement("beforeend",div)
+    div.setAttribute("data-movies-event-target", "selectedCard")
+    div.insertAdjacentElement("beforeend",imgCard)
+
     imgCard.src = `https://image.tmdb.org/t/p/original/${moviePoster}`
     imgCard.classList.add("rounded-lg")
-    console.log(selectedCardContainer);
+    div.insertAdjacentHTML("afterbegin", '<i class="fa-solid fa-xmark absolute" data-action="click->movies-event#deleteCard"></i>')
 
-
-    // imgCard.src = `https://image.tmdb.org/t/p/original/${moviePoster}`;
     movie.classList.add("outline", "outline-yellow-400")
     // this.movieIds.push(movieId)
     input.value += `${movieTitle}**${movieSynopsis}**${moviePoster}---`
+  }
+
+  deleteCard(event) {
+    const img = event.currentTarget
+    img.remove()
   }
 
   // Créer un tableau de hash, ou chaque hash represente un film
