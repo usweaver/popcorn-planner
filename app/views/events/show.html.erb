@@ -58,10 +58,10 @@
               <div class="bg-zinc-900 grow px-4 py-3 rounded-r-md flex items-center">
                 <div class="flex flex-col gap-y-2">
                   <h3><%= movie.name.truncate(40) %></h3>
-                  <p class="text-xs"><%= movie.synopsis.truncate(80) %></p>
+                  <p class="text-xs"><%= movie.synopsis.truncate(70) %></p>
                 </div>
                 <div class="grow"></div>
-                <i class="fa-solid fa-check-to-slot text-yellow-400 mr-2"></i>
+                <i class="fa-solid fa-check-to-slot text-yellow-400 mx-2"></i>
               </div>
             </div>
           <% end %>
@@ -130,7 +130,7 @@
   </div>
   <div class="bg-zinc-800 p-2 rounded-md">
 
-    <h2 class="mb-3"><i class="fa-solid fa-location-dot mr-1"></i>Lieu</h2>
+    <h2 class="mb-3"><i class="fa-solid fa-location-dot mr-1 text-zinc-400"></i> Lieu</h2>
 
     <h3><%=info_user_path.address%></h3>
     <p class="mb-3 font-bold"><%=info_user_path.zipcode%> <%=info_user_path.city%></p>
@@ -140,4 +140,4 @@
       data-map-markers-value="<%= @markers.to_json %>"
       data-map-api-key-value="<%= ENV['MAPBOX_API_KEY'] %>">
     </div>
-</div>
+  </div>
