@@ -48,7 +48,9 @@ class EventsController < ApplicationController
 
     if @event.save
       @event.launch
-      redirect_to events_path
+      session[:show_confetti] = true
+      flash[:notice] = "L'évènement #{@event.name} a été créé."
+      redirect_to event_path(@event)
     else
       render :new, status: :unprocessable_entity
     end
