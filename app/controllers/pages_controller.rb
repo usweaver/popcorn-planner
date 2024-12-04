@@ -5,6 +5,7 @@ class PagesController < ApplicationController
       @pending_events = all_invitations.select{ |event| event.votes.find_by(user: current_user).movie_event.present? }
       @invitations = all_invitations.select{ |event| event.votes.find_by(user: current_user).movie_event.nil? }
     end
+
     # @pending_events = []
     # @invitations = []
   end

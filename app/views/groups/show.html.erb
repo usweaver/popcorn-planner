@@ -1,3 +1,14 @@
+<% if session[:show_confetti] %>
+  <script>
+    // Utilisation d'une librairie comme Canvas Confetti ou Party.js
+    confetti({
+      particleCount: 100,
+      spread: 70,
+      origin: { y: 0.6 }
+    });
+  </script>
+  <% session[:show_confetti] = nil %> <!-- Réinitialiser après affichage -->
+<% end %>
 <%= cl_image_tag @group.group_picture.key, height: 80, width: 80, crop: :fill, class: "w-20 h-20 bg-zinc-400 rounded-lg flex items-center justify-center border-2 border-yellow-400 mx-auto mb-4" %>
 <h1><%= @group.name %></h1>
 <% if @group.users.count > 0 %>
