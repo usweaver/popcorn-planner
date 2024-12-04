@@ -1,4 +1,4 @@
-<h1 class="mt-3 mb-3"><i class="fa-solid fa-film mr-2 text-zinc-400"></i><%= @movie.name %></h1>
+<h1 class="mt-0 mb-4"><i class="fa-solid fa-film mr-2 text-zinc-400"></i><%= @movie.name %></h1>
 <div class="bg-zinc-800 p-2 rounded-md mb-3">
   <h2 class="mb-auto"><i class="fa-solid fa-calendar text-zinc-400 mr-1"></i> Vu le <%=I18n.l(@events.sort_by(&:date).last.date, format: :long) %></h2>
 </div>
