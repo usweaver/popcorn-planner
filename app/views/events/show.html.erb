@@ -17,10 +17,16 @@
 
     </div>
 
-    <div class="flex flex-row -space-x-1 mb-3">
+    <div class="flex flex-row mb-3 items-center gap-x-2">
 
-      <%@event.group.users.each do |user|%>
-        <%= image_tag(url_for(user.profile_picture), class: "rounded-full size-8 ring-1 ring-yellow-400 shadow-sm") if user.profile_picture.attached? %>
+      <div class="flex flex-row -space-x-2 items-center">
+        <% @event.group.users.first(6).each do |user| %>
+          <%= cl_image_tag user.profile_picture.key, height: 44, width: 44, crop: :fill, class: "w-11 h-11 bg-zinc-400 rounded-full flex items-center justify-center border border-yellow-400" %>
+
+        <% end %>
+      </div>
+      <% if @event.group.users.size > 6 %>
+        <span class="text-sm text-justify font-bold">+ <%= @event.group.users.size - 6 %> autres</span>
       <% end %>
 
     </div>

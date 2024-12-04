@@ -1,6 +1,6 @@
 <%= cl_image_tag @group.group_picture.key, height: 80, width: 80, crop: :fill, class: "w-20 h-20 bg-zinc-400 rounded-lg flex items-center justify-center border-2 border-yellow-400 mx-auto mb-4" %>
 <h1><%= @group.name %></h1>
-<% if @group.users.count >= 0 %>
+<% if @group.users.count > 0 %>
   <h2><i class="fa-solid fa-user text-zinc-400 mr-1"></i> <span class="text-yellow-400"><%= @group.users.count %></span> Membre<%= "s" if @group.users.count > 1 %></h2>
   <div class="w-100 flex flex-col gap-y-2 mb-8">
     <% @group.users.each do |user| %>
