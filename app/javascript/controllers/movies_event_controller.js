@@ -6,8 +6,11 @@ export default class extends Controller {
     "cardTemplate",
     "cardContainer",
     "selectMovieInput",
+    "imgCard",
     "selectedCardContainer",
-    "selectedCard"
+    "selectedCard",
+    "moviesInfosInput",
+    "panier"
   ];
 
   static values = {
@@ -16,7 +19,12 @@ export default class extends Controller {
 
   connect() {
     console.log("connected");
-    this.movieIds = []
+    this.selectedMovies = []
+    this.divCardContainer = document.getElementById("divCardContainer")
+
+    if (this.selectedMovies.length === 0) {
+      divCardContainer.classList.add("hidden")
+    }
   }
 
   search(event) {
@@ -57,10 +65,11 @@ export default class extends Controller {
             card.dataset.title = result.title;
             card.dataset.posterUrl = result.poster_path;
             card.dataset.synopsis = result.overview;
-            card.dataset.tomdbId = result.id;
+            card.dataset.tmdbId = result.id;
 
             img.src = `https://image.tmdb.org/t/p/original/${result.poster_path}`;
             img.setAttribute("data-action", "click->movies-event#choiceMovie");
+            img.setAttribute("data-movies-event-target", "imgCard")
             img.setAttribute("data-id", result.id);
             img.setAttribute("data-title", result.title);
             img.setAttribute("data-poster-url", result.poster_path);
@@ -76,43 +85,87 @@ export default class extends Controller {
 
   choiceMovie(event) {
     const movie = event.currentTarget
-    console.log(movie);
 
     const movieTitle = movie.dataset.title || ""
-    const movieId = movie.dataset.id || ""
+    const movieTmdbId = movie.dataset.id || ""
     const moviePoster = movie.dataset.posterUrl || ""
     const movieSynopsis = movie.dataset.synopsis || ""
-    const input = document.getElementById("selected-movie-input")
     const selectedCardContainer = document.getElementById("selected-card-container")
     const div = document.createElement("div")
     const imgCard = document.createElement("img")
 
     selectedCardContainer.insertAdjacentElement("beforeend",div)
     div.setAttribute("data-movies-event-target", "selectedCard")
+    div.classList.add("divMark")
+    div.dataset.name = movieTitle
     div.insertAdjacentElement("beforeend",imgCard)
-
     imgCard.src = `https://image.tmdb.org/t/p/original/${moviePoster}`
     imgCard.classList.add("rounded-lg")
-    div.insertAdjacentHTML("afterbegin", '<i class="fa-solid fa-xmark absolute" data-action="click->movies-event#deleteCard"></i>')
+    div.insertAdjacentHTML("afterbegin", '<div class="absolute flex items-center justify-center m-0.5 rounded-full w-4 h-4 bg-zinc-800"><i class="fa-solid fa-xmark shadow-lg text-xs" data-action="click->movies-event#deleteCard"></i></div>')
 
     movie.classList.add("outline", "outline-yellow-400")
-    // this.movieIds.push(movieId)
-    input.value += `${movieTitle}**${movieSynopsis}**${moviePoster}---`
+    movie.classList.add("pointer-events-none")
+    this.selectedMovies.push(
+      {
+        title: movieTitle,
+        description: movieSynopsis,
+        posterUrl: moviePoster,
+        tmdbId: movieTmdbId
+      }
+    )
+
+    if (this.selectedMovies.length > 0) {
+      divCardContainer.classList.remove("hidden")
+    }
+
+    this.getString()
   }
 
   deleteCard(event) {
-    const img = event.currentTarget
+    const img = event.currentTarget.closest(".divMark")
+    const nameMovie = img.dataset.name
+    const movie = document.querySelectorAll(`[data-title="${nameMovie}"]`)[1];
+
+    movie.classList.remove("outline", "outline-yellow-400")
+    movie.classList.remove("pointer-events-none")
+    this.selectedMovies = this.selectedMovies.filter((movie) => movie.title !== nameMovie)
     img.remove()
+    console.log(this.selectedMovies);
+    this.getString()
+
+
+    console.log('htmlElement', movie)
   }
 
-  // Créer un tableau de hash, ou chaque hash represente un film
-  // Lors du click vérifier si le film est dans le tableau, si il y est alors
-  // on supprime le faite qu'il soit entouré en jaune,
-  // on le supprime du tableau
+  getString() {
+    let movies_infos = ""
+    this.selectedMovies.forEach((movie) => {
+      movies_infos += `${movie.title}**${movie.description}**${movie.posterUrl}---`
+    })
+    const input = document.getElementById("selected-movie-input")
+    input.value = movies_infos
+  }
 
-  // Si il n'y ai pas alors je l'entoure en jaune
-  // je l'ajoute dans le tableau
+  // Lors de la creation du poster dans le panier, rajouter un dataset (name)
+  // Créer une méthode de suppression, récuprer sur quel element il a cliquer,
+  // graàce à cet element récuprer le nom stocker dans le dataset
+  // Retrouver l'element dans le tableau qui a le meme nom via une regex
+  // Supprimer l'element et actualiser le panier
+  // .match \${nom du film}\
 
-  // Lors de l'envoi du formulaire
-  // je construit ma fameuse string à partir des éléments que j'ai dans mon tableau
+
+  // selected_movies = []
+
+  // selected_movies => [
+  //   {
+  //     name: 'nom du film',
+  //     description: 'description du film',
+  //     poster_url: 'url'
+  //   },
+  //   {
+  //     name: 'nom du film 2',
+  //     description: 'desc 2',
+  //     poster_url: 'url 2'
+  //   }
+  // ]
 }

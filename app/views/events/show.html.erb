@@ -1,3 +1,15 @@
+<% if session[:show_confetti] %>
+  <script>
+    // Utilisation d'une librairie comme Canvas Confetti ou Party.js
+    confetti({
+      particleCount: 100,
+      spread: 70,
+      origin: { y: 0.6 }
+    });
+  </script>
+  <% session[:show_confetti] = nil %> <!-- Réinitialiser après affichage -->
+<% end %>
+
 <%movie_selected_path = @movies.find(@event.movie_events[0]["movie_id"])%>
 <%info_user_path = @users.find(@event.user_id) %>
 

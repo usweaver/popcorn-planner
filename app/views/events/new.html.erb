@@ -1,6 +1,6 @@
 <div data-controller = "next-form">
 
-  <div class="absolute w-full top-4 left-0">
+  <div class="fixed w-full top-28 left-0">
     <div id="progress-bar" class="bg-white rounded-xl shadow-sm overflow-hidden p-1 mx-2">
       <div class="relative h-6 flex items-center justify-center">
         <div class="absolute top-0 bottom-0 left-0 rounded-lg w-[0%] bg-yellow-400 duration-700" data-next-form-target = "percentBar"></div>
@@ -13,7 +13,7 @@
 
     <div id="event-name" class="flex flex-col gap-2 mb-4">
       <%= f.label :name, "Quels est le nom de l'évènement ?", class: "form-label text-center text-2xl mb-4" %>
-      <%= f.text_field :name, class:"form-input rounded", data: {next_form_target: "nameInput"}%>
+      <%= f.text_field :name, class:"form-input rounded mb-4", data: {next_form_target: "nameInput"}%>
       <div class="button" data-action="click->next-form#nextFormName">suivant</div>
     </div>
 
@@ -21,7 +21,7 @@
       <%= f.label :group_id, "Choisis ton groupe", class: "form-label text-center text-2xl mb-4" %>
       <%= f.hidden_field :group_id, id: "selected-group-id", data: {next_form_target: "groupInput", radio_button_target: "input"}, class: "form-input"%>
 
-      <div class="flex flex-col gap-3">
+      <div class="flex flex-col gap-3 mb-4">
         <div class="w-100 flex flex-col gap-y-2" >
           <% Group.all.each do |group| %>
             <%= render "events/card", group:group %>
@@ -33,7 +33,7 @@
     </div>
 
     <div id="event-date" class="hidden mb-4 flex flex-col gap-2">
-      <div class="grid gap-4 grid-cols-2">
+      <div class="flex flex-col gap-y-16">
         <div class="flex flex-col">
           <%= f.label :date, "Choisis une date", class: "form-label text-center text-2xl mb-4" %>
           <%= f.date_field :date, class: "form-input", data: {next_form_target: "dateInput"} %>
@@ -41,7 +41,7 @@
 
         <div class="flex flex-col">
           <%= f.label :start_time, "Choisis une heure", class: "form-label text-center text-2xl mb-4" %>
-          <%= f.time_field :start_time, class: "form-input text-center text-2xl mb-4", data: {next_form_target: "timeInput"}%>
+          <%= f.time_field :start_time, class: "form-input text-center mb-4", data: {next_form_target: "timeInput"}%>
         </div>
       </div>
 
@@ -51,18 +51,21 @@
     <div id="event-movie"
       data-controller = "movies-event"
       data-movies-event-url-value="<%=search_movies_url%>"
-      class="hidden">
-      <div class="text-center mb-4">
-        <%= f.text_field :movie_infos,  id: "selected-movie-input", data: {radio_button_movie_target: "selectMovieInput", next_form_target: "moviesInput"} %>
-        <%= f.label :movie_infos, "Selection des films", class: "form-label text-2xl" %>
+      class="hidden mb-4">
+      <div class="text-center mt-10 mb-4">
+        <%= f.hidden_field :movie_infos, id: "selected-movie-input", data: {radio_button_movie_target: "selectMovieInput", next_form_target: "moviesInput", movies_event_target: "moviesInfosInput"} %>
+        <%= f.label :movie_infos, "Sélection des films", class: "form-label text-2xl" %>
       </div>
+
       <div class="grid grid-cols-6 mb-4">
         <%= text_field_tag :query,
             params[:query],
             placeholder: "Rechercher un film",
             class:"rounded w-full",
-            data: { movies_event_target: "movieInput" }, class: "text-zinc-50 bg-zinc-800 font-bold col-span-4 rounded-l-lg" %>
-        <%= submit_tag "Rechercher", data: { action: "click->movies-event#search" }, class: "font-header uppercase px-4 py-2 bg-yellow-400 text-zinc-800 rounded-r-lg col-span-2" %>
+            data: { movies_event_target: "movieInput" }, class: "text-zinc-50 bg-zinc-800 font-bold col-span-5 rounded-l-lg" %>
+        <%= button_tag data: { action: "click->movies-event#search" }, class: "font-header uppercase px-4 py-2 bg-yellow-400 text-zinc-800 rounded-r-lg col-span-1" do %>
+          <i class="fa-solid fa-magnifying-glass"></i>
+        <% end %>
       </div>
 
       <template data-movies-event-target="cardTemplate">
@@ -78,7 +81,9 @@
         <div data-movies-event-target="cardContainer" class="grid grid-cols-3 gap-4 mb-4">
         </div>
 
-        <div class="bg-zinc-800 grid grid-cols-6 gap-2 rounded-lg p-2 mt-4" id="selected-card-container">
+        <div id="divCardContainer" class="bg-zinc-800 rounded-lg p-2 mt-4 mb-4" >
+          <div class="grid grid-cols-6 gap-2" id="selected-card-container" data-movies-event-target="panier">
+          </div>
         </div>
 
         <div class="button">
