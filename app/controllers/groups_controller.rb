@@ -18,7 +18,9 @@ class GroupsController < ApplicationController
       users.each do |user|
         Member.create!(user_id: user, group_id: @group.id)
       end
-      redirect_to groups_path
+      session[:show_confetti] = true
+      flash[:notice] = "Le groupe #{@group.name} a été créé."
+      redirect_to group_path(@group)
     else
       render :new, status: :unprocessable_entity
     end

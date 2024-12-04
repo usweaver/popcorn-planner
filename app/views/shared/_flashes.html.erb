@@ -1,0 +1,13 @@
+<% if notice %>
+  <div data-controller="toastr" class="bg-green-800 rounded-md opacity-90 fixed bottom-24 left-3 z-50 p-2 border-2 border-green-700 flex items-center gap-x-2 transition-transform ease-in-out duration-700 -translate-x-256 w-[calc(100dvw-1.5rem)]">
+    <i class="fa-solid fa-circle-check"></i>
+    <p class="font-bold m-0"><%= notice %></p>
+  </div>
+<% end %>
+
+<% if alert %>
+  <div data-controller="toastr" class="bg-red-800 rounded-md opacity-90 fixed bottom-24 left-3 z-50 p-2 border-2 border-red-700 flex items-center gap-x-2 transition-transform ease-in-out duration-700 -translate-x-256 w-[calc(100dvw-1.5rem)]">
+    <i class="fa-solid fa-circle-xmark"></i>
+    <p class="font-bold m-0"><%= alert %></p>
+  </div>
+<% end %>

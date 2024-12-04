@@ -46,7 +46,8 @@ class MoviesController < ApplicationController
     # selected_movie_event = Movie_event.find(selected_movie_event_id)
     # selected_movie_event.selected_movie = true
     # selected_movie_event.save!
-
+    movie = Movie.find(params[:id])
+    flash[:notice] = "Votre vote pour #{movie.name} est bien pris en compte."
     redirect_to event_path(event)
   end
 end
