@@ -5,7 +5,7 @@
 <% new_event_unactive_classes = "border-zinc-50 border-zinc-50 bg-gradient-to-t from-zinc-600 to-transparent to-70% text-yellow-300" %>
 <% new_event_active_classes = "border-yellow-400 bg-gradient-to-t from-yellow-100 to-transparent to-70% text-yellow-500" %>
 
-<nav class="fixed bottom-0 flex flex-col w-full">
+<nav class="fixed bottom-0 flex flex-col w-full z-50">
   <div class="flex w-full h-16 items-center">
     <%= link_to root_path, class: "#{classes} #{current_page?(root_path) ? active_classes : unactive_classes}" do %>
       <i class="fa-solid fa-house"></i>
