@@ -98,10 +98,12 @@ end
 
 puts "Création des Events"
 
+users_whitout_ct = User.all.where.not(last_name: "Thorez")
+
 events = ["Popcorn & Paillettes", "Ciné-Sieste : On Dort Pas, Promis !", "Clap & Chill", "Projecteur Fou"]
 events.each do |event_name|
 
-  user = User.all.sample
+  user = users_whitout_ct.sample
   group = user.groups.sample
   date = Date.today + rand(1..10).days
   datetime = Time.new(date.year, date.month, date.day, 20, 0, 0)
@@ -113,9 +115,9 @@ events.each do |event_name|
   event.launch
 end
 
-user = User.where(last_name: "Valentin")[0]
-group = Group.where(name: "Les graines")[0]
-date = Date.today + rand(1..10).days
+user = User.find_by(last_name: "Valentin")
+group = Group.find_by(name: "Les graines")
+date = Date.today + rand(5..30).days
 datetime = Time.new(date.year, date.month, date.day, 20, 0, 0)
 event = Event.new(name: "Best Movies", date: datetime, user: user, group: group)
 
@@ -126,9 +128,9 @@ event.launch
 past_events = ["Action ! Mais Que Pour les Chips", "Le Festival du Canapé", "Ciné-Quizz Party : Lumières, Caméra, Questions !", "Film, Bouffe & Bavardages", "Ciné'Marathon : Survivrez-vous ?", "Les Oscars de la Rigolade"]
 past_events.each do |event_name|
 
-  user = User.all.sample
+  user = users_whitout_ct.sample
   group = user.groups.sample
-  date = Date.today - rand(10..30).days
+  date = Date.today - rand(20..60).days
   datetime = Time.new(date.year, date.month, date.day, 20, 0, 0)
 
   event = Event.new(name: event_name, date: datetime, user: user, group: group)
@@ -212,14 +214,33 @@ movie_events.each do |e|
   event = Event.all[e[:event]]
   movie = Movie.all[e[:movie]]
   movie_event = MovieEvent.create!(event: event, movie: movie, selected_movie: e[:selected_movie])
-  if e[:selected_movie]
-    user = User.where(last_name: "Thorez")[0]
-    vote = event.votes.find_by(user: user)
-    vote.movie_event = movie_event
-    vote.save!
-    # Vote.create!(user_id: user.id, movie_event_id: movie_event.id)
-  end
+  # if e[:selected_movie]
+  #   user = User.find_by(last_name: "Thorez")
+  #   vote = event.votes.find_by(user: user)
+  #   vote.movie_event = movie_event
+  #   vote.save!
+  #   # Vote.create!(user_id: user.id, movie_event_id: movie_event.id)
+  # end
 end
+
+event = Event.find_by(name: "Projecteur Fou")
+movie_events = event.movie_events.first(2)
+votes = event.votes
+votes.each do |vote|
+  vote.movie_event = movie_events.sample
+  vote.save!
+end
+
+event = Event.find_by(name: "Best Movies")
+movie = Movie.find_by(name: "Le paquet")
+movie_event = event.movie_events.find_by(movie_id: movie.id)
+ct = User.find_by(last_name: "Thorez")
+votes = event.votes.where.not(user_id: ct.id)
+votes.each do |vote|
+  vote.movie_event = movie_event
+  vote.save!
+end
+
 
 past_movie_events = [
   { event: 5, movie: 14, selected_movie: true },

@@ -5,22 +5,25 @@
 <% new_event_unactive_classes = "border-zinc-50 border-zinc-50 bg-gradient-to-t from-zinc-600 to-transparent to-70% text-yellow-300" %>
 <% new_event_active_classes = "border-yellow-400 bg-gradient-to-t from-yellow-100 to-transparent to-70% text-yellow-500" %>
 
-<nav class="fixed bottom-0 flex w-full h-16 items-center lg:w-128">
-  <%= link_to root_path, class: "#{classes} #{current_page?(root_path) ? active_classes : unactive_classes}" do %>
-    <i class="fa-solid fa-house"></i>
-  <% end %>
-  <%= link_to groups_path, class: "#{classes} #{controller_name == 'groups' ? active_classes : unactive_classes}" do %>
-    <i class="fa-solid fa-users"></i>
-  <% end %>
-  <%= link_to new_event_path, class: "#{new_event_classes} #{controller_name == 'events' && action_name == 'new' ? new_event_active_classes : new_event_unactive_classes}" do %>
-    <div class="w-10 h-10 border-4 border-yellow-300 flex justify-center items-center rounded-full">
-      <i class="fa-solid fa-plus"></i>
-    </div>
-  <% end %>
-  <%= link_to events_path, class: "#{classes} #{controller_name == 'events' && action_name != 'new' ? active_classes : unactive_classes}" do %>
-    <i class="fa-solid fa-calendar"></i>
-  <% end %>
-  <%= link_to movies_path, class: "#{classes} #{controller_name == 'movies' ? active_classes : unactive_classes}" do %>
-    <i class="fa-solid fa-film"></i>
-  <% end %>
+<nav class="fixed bottom-0 flex flex-col w-full">
+  <div class="flex w-full h-16 items-center">
+    <%= link_to root_path, class: "#{classes} #{current_page?(root_path) ? active_classes : unactive_classes}" do %>
+      <i class="fa-solid fa-house"></i>
+    <% end %>
+    <%= link_to groups_path, class: "#{classes} #{controller_name == 'groups' ? active_classes : unactive_classes}" do %>
+      <i class="fa-solid fa-users"></i>
+    <% end %>
+    <%= link_to new_event_path, class: "#{new_event_classes} #{controller_name == 'events' && action_name == 'new' ? new_event_active_classes : new_event_unactive_classes}" do %>
+      <div class="w-10 h-10 border-4 border-yellow-300 flex justify-center items-center rounded-full">
+        <i class="fa-solid fa-plus"></i>
+      </div>
+    <% end %>
+    <%= link_to events_path, class: "#{classes} #{controller_name == 'events' && action_name != 'new' ? active_classes : unactive_classes}" do %>
+      <i class="fa-solid fa-calendar"></i>
+    <% end %>
+    <%= link_to movies_path, class: "#{classes} #{controller_name == 'movies' ? active_classes : unactive_classes}" do %>
+      <i class="fa-solid fa-film"></i>
+    <% end %>
+  </div>
+  <div class="w-full h-8 bg-zinc-800 hidden" id="pwa-bar"></div>
 </nav>

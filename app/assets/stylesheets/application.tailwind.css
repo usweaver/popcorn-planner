@@ -24,10 +24,6 @@
   .button-secondary {
     @apply font-header px-4 py-2 bg-zinc-600 uppercase mx-auto text-zinc-50 rounded-md text-xs;
   }
-  .notice,
-  .alert {
-    @apply font-bold text-center mt-4;
-  }
   .form-input {
     @apply text-zinc-50 bg-zinc-800 rounded-md font-bold;
   }
@@ -44,8 +40,6 @@
     @apply bg-zinc-800;
     /* @apply rounded-md; */
   }
-
-
 
   @layer components {
     .button {

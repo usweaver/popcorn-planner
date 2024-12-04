@@ -12,6 +12,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Russo+One&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v6.1.2/css/all.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" rel="stylesheet">
     <%= favicon_link_tag asset_path('logo.png') %>
     <link rel="manifest" href="/manifest.json">
     <link href='https://api.mapbox.com/mapbox-gl-js/v3.8.0/mapbox-gl.css' rel='stylesheet' />
@@ -19,7 +20,7 @@
 
   </head>
 
-  <body class="bg-zinc-900 text-zinc-50 p-0 m-0">
+  <body class="bg-zinc-900 text-zinc-50 p-0 m-0 max-h-dvh" data-controller="body">
 
     <script src="https://unpkg.com/@mapbox/mapbox-sdk/umd/mapbox-sdk.min.js"></script>
 
@@ -27,15 +28,13 @@
 
       <%= render "shared/header" if user_signed_in?%>
 
-      <main class="px-3 flex flex-col min-h-[calc(100vh-10rem)] justify-center mt-24 pt-4 pb-16 relative">
+      <main class="px-3 flex flex-col min-h-[calc(100dvh-10rem)] justify-center mt-24 pt-4 pb-16 relative">
 
         <%= yield %>
 
-        <p class="notice"><%= notice %></p>
-        <p class="alert"><%= alert %></p>
-
       </main>
 
+      <%= render "shared/flashes" %>
       <%= render "shared/navbar" if user_signed_in? %>
 
     </div>
