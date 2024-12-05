@@ -12,13 +12,13 @@
   <%= form_with model: @event, data: {controller: "radio-button" } do |f| %>
 
     <div id="event-name" class="flex flex-col gap-2 mb-4">
-      <%= f.label :name, "Quels est le nom de l'évènement ?", class: "form-label text-center text-2xl mb-4" %>
+      <%= f.label :name, "Quel est le nom de l'évènement ?", class: "form-label text-center text-2xl mb-4" %>
       <%= f.text_field :name, class:"form-input rounded mb-4", data: {next_form_target: "nameInput"}%>
       <div class="button" data-action="click->next-form#nextFormName">suivant</div>
     </div>
 
     <div id="event-group" class="hidden flex flex-col gap-2 mb-4">
-      <%= f.label :group_id, "Choisis ton groupe", class: "form-label text-center text-2xl mb-4" %>
+      <%= f.label :group_id, "Choisissez un groupe", class: "form-label text-center text-2xl mb-4" %>
       <%= f.hidden_field :group_id, id: "selected-group-id", data: {next_form_target: "groupInput", radio_button_target: "input"}, class: "form-input"%>
 
       <div class="flex flex-col gap-3 mb-4">
@@ -33,15 +33,15 @@
     </div>
 
     <div id="event-date" class="hidden mb-4 flex flex-col gap-2">
-      <div class="flex flex-col gap-y-16">
+      <div class="flex flex-col gap-y-12">
         <div class="flex flex-col">
-          <%= f.label :date, "Choisis une date", class: "form-label text-center text-2xl mb-4" %>
-          <%= f.date_field :date, class: "form-input", data: {next_form_target: "dateInput"} %>
+          <%= f.label :date, "Choisissez une date", class: "form-label text-center text-2xl mb-4" %>
+          <%= f.date_field :date, class: "form-input", data: {next_form_target: "dateInput"}, value: Date.today %>
         </div>
 
         <div class="flex flex-col">
-          <%= f.label :start_time, "Choisis une heure", class: "form-label text-center text-2xl mb-4" %>
-          <%= f.time_field :start_time, class: "form-input text-center mb-4", data: {next_form_target: "timeInput"}%>
+          <%= f.label :start_time, "Et une heure", class: "form-label text-center text-2xl mb-4" %>
+          <%= f.time_field :start_time, class: "form-input text-center mb-4", data: {next_form_target: "timeInput"}, value: Time.zone.parse("20:00")%>
         </div>
       </div>
 
@@ -70,7 +70,7 @@
 
       <template data-movies-event-target="cardTemplate">
         <div id="card" class="relative">
-          <img src="" alt="" id="img" >
+          <img src="" alt="" id="img">
         </div>
       </template>
 
