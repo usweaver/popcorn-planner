@@ -20,7 +20,10 @@ class EventsController < ApplicationController
       # marker_html:"<div class='custom-marker' style='background-color: red; width: 20px; height: 20px; border-radius: 50%;'></div>",
     }]
 
-    @ordered_movies = @event.list_movies.map{|movie| {movie: movie, votes: get_votes(movie, @event)}}.sort_by{|hash| -hash[:votes]}
+    @ordered_movies = @event.list_movies.map{|movie| {
+      movie: movie,
+      votes: get_votes(movie, @event)
+      }}.sort_by{|hash| -hash[:votes][:votes_count]}
   end
 
   def new
@@ -91,6 +94,11 @@ class EventsController < ApplicationController
   end
 
   def get_votes(movie, event)
-    movie.events.find_by(id: event.id).votes.where(movie_event_id: event.movie_events.find_by(movie_id: movie.id)).count
+    votes = movie.events.find_by(id: event.id).votes.where(movie_event_id: event.movie_events.find_by(movie_id: movie.id))
+    vote_users = votes.map(&:user)
+    {
+      votes_count: votes.count,
+      vote_users:
+    }
   end
 end
