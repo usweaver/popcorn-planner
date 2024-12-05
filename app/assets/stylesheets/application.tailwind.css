@@ -15,6 +15,10 @@
   h3 {
     @apply text-lg text-yellow-400 font-bold mb-0 leading-none;
   }
+
+  p {
+    @apply font-header uppercase text-sm;
+  }
 }
 
 @layer components {

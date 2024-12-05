@@ -23,7 +23,7 @@ export default class extends Controller {
     this.divCardContainer = document.getElementById("divCardContainer")
 
     if (this.selectedMovies.length === 0) {
-      divCardContainer.classList.add("hidden")
+      divCardContainer.innerHTML = "<p> Aucun film sélectionné </p>"
     }
   }
 
@@ -90,6 +90,26 @@ export default class extends Controller {
     const movieTmdbId = movie.dataset.id || ""
     const moviePoster = movie.dataset.posterUrl || ""
     const movieSynopsis = movie.dataset.synopsis || ""
+
+    this.selectedMovies.push(
+      {
+        title: movieTitle,
+        description: movieSynopsis,
+        posterUrl: moviePoster,
+        tmdbId: movieTmdbId
+      }
+    )
+
+    console.log("ADD FILM", this.selectedMovies);
+
+    if (this.selectedMovies.length === 1) {
+      console.log("JE dois add ma div")
+      console.log("div", this.divCardContainer)
+      this.divCardContainer.innerText = ""
+      this.divCardContainer.insertAdjacentHTML('beforeend', '<div class="grid grid-cols-6 gap-2" id="selected-card-container" data-movies-event-target="panier">');
+
+    }
+
     const selectedCardContainer = document.getElementById("selected-card-container")
     const div = document.createElement("div")
     const imgCard = document.createElement("img")
@@ -105,14 +125,7 @@ export default class extends Controller {
 
     movie.classList.add("outline", "outline-yellow-400")
     movie.classList.add("pointer-events-none")
-    this.selectedMovies.push(
-      {
-        title: movieTitle,
-        description: movieSynopsis,
-        posterUrl: moviePoster,
-        tmdbId: movieTmdbId
-      }
-    )
+    movie.closest('div').insertAdjacentHTML("afterbegin", '<div class= "absolute left-20 bg-zinc-800 rounded-full w-3 h-3 flex items-center justify-center top-2.5"><i class="fa-solid fa-circle-check text-yellow-400 text-md"></i></div>')
 
     if (this.selectedMovies.length > 0) {
       divCardContainer.classList.remove("hidden")
@@ -133,8 +146,9 @@ export default class extends Controller {
     console.log(this.selectedMovies);
     this.getString()
 
-
-    console.log('htmlElement', movie)
+    if (this.selectedMovies.length === 0) {
+      this.divCardContainer.innerHTML = "<p> Aucun film sélectionné </p>"
+    }
   }
 
   getString() {
@@ -145,27 +159,4 @@ export default class extends Controller {
     const input = document.getElementById("selected-movie-input")
     input.value = movies_infos
   }
-
-  // Lors de la creation du poster dans le panier, rajouter un dataset (name)
-  // Créer une méthode de suppression, récuprer sur quel element il a cliquer,
-  // graàce à cet element récuprer le nom stocker dans le dataset
-  // Retrouver l'element dans le tableau qui a le meme nom via une regex
-  // Supprimer l'element et actualiser le panier
-  // .match \${nom du film}\
-
-
-  // selected_movies = []
-
-  // selected_movies => [
-  //   {
-  //     name: 'nom du film',
-  //     description: 'description du film',
-  //     poster_url: 'url'
-  //   },
-  //   {
-  //     name: 'nom du film 2',
-  //     description: 'desc 2',
-  //     poster_url: 'url 2'
-  //   }
-  // ]
 }
