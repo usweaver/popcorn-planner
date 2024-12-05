@@ -1,12 +1,12 @@
 <% classes = "no-underline w-1/5 h-full text-center text-2xl flex items-center justify-center border-b-4 backdrop-blur-sm mask-gradient" %>
 <% new_event_classes = "no-underline w-1/5 h-full text-center text-2xl flex items-center justify-center border-b-3 border-b-4 backdrop-blur-sm mask-gradient" %>
-<% unactive_classes = "text-zinc-50 border-zinc-50 bg-gradient-to-t from-zinc-600 to-transparent to-70%" %>
-<% active_classes = "text-yellow-400 border-yellow-400 bg-gradient-to-t from-yellow-100 to-transparent to-70%" %>
-<% new_event_unactive_classes = "border-zinc-50 border-zinc-50 bg-gradient-to-t from-zinc-600 to-transparent to-70% text-yellow-300" %>
-<% new_event_active_classes = "border-yellow-400 bg-gradient-to-t from-yellow-100 to-transparent to-70% text-yellow-500" %>
+<% unactive_classes = "text-zinc-50 border-zinc-50 bg-gradient-to-t from-zinc-600 to-transparent to-60%" %>
+<% active_classes = "text-yellow-400 border-yellow-400 bg-gradient-to-t from-yellow-100 to-transparent to-60%" %>
+<% new_event_unactive_classes = "border-zinc-50 border-zinc-50 bg-gradient-to-t from-zinc-600 to-transparent to-60% text-yellow-300" %>
+<% new_event_active_classes = "border-yellow-400 bg-gradient-to-t from-yellow-100 to-transparent to-60% text-yellow-500" %>
 
 <nav class="fixed bottom-0 flex flex-col w-full z-50">
-  <div class="flex w-full h-16 items-center">
+  <div class="flex w-full h-20 items-center pt-4">
     <%= link_to root_path, class: "#{classes} #{current_page?(root_path) ? active_classes : unactive_classes}" do %>
       <i class="fa-solid fa-house"></i>
     <% end %>
