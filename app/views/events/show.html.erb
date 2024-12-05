@@ -80,7 +80,7 @@
                       <div class="flex -space-x-1">
                         <% hash[:votes][:vote_users].each do |user| %>
                           <% if user.profile_picture.attached? %>
-                            <%= cl_image_tag user.profile_picture.key, height: 28, width: 28, crop: :fill, class: "size-5 bg-zinc-400 rounded-full flex items-center justify-center border border-yellow-400" %>
+                            <%= cl_image_tag user.profile_picture.key, height: 28, width: 28, crop: :fill, class: "size-7 bg-zinc-400 rounded-full flex items-center justify-center border border-yellow-400" %>
                           <% else %>
                             <%= image_tag "default_image.png", class: "size-5 bg-zinc-400 rounded-full flex items-center justify-center border border-yellow-400 " %>
                           <% end %>
@@ -108,23 +108,23 @@
                 <img src="https://image.tmdb.org/t/p/w500<%= hash[:movie].poster_url %>" alt="<%= hash[:movie].name %>" class="h-20 rounded-l-md">
                 <div class="flex flex-col grow ">
                   <div class="bg-zinc-900 grow px-4 py-1 flex items-center relative rounded-tr-md">
-                    <div class="flex flex-col gap-y-1">
+                    <div class="flex flex-col gap-y-1 justify-center">
                       <h3 class="text-base leading-none"><%= hash[:movie].name %></h3>
-                    <div class="flex">
-                    <div class="flex -space-x-1">
-                      <% hash[:votes][:vote_users].each do |user| %>
-                        <% if user.profile_picture.attached? %>
-                          <%= cl_image_tag user.profile_picture.key, height: 28, width: 28, crop: :fill, class: "size-4 bg-zinc-400 rounded-full flex items-center justify-center border border-yellow-400" %>
-                        <% else %>
-                          <%= image_tag "default_image.png", class: "size-5 bg-zinc-400 rounded-full flex items-center justify-center border border-yellow-400 " %>
+                      <div class="flex items-center">
+                        <div class="flex -space-x-1">
+                          <% hash[:votes][:vote_users].each do |user| %>
+                            <% if user.profile_picture.attached? %>
+                              <%= cl_image_tag user.profile_picture.key, height: 28, width: 28, crop: :fill, class: "size-4 bg-zinc-400 rounded-full flex items-center justify-center border border-yellow-400" %>
+                            <% else %>
+                              <%= image_tag "default_image.png", class: "size-5 bg-zinc-400 rounded-full flex items-center justify-center border border-yellow-400 " %>
+                            <% end %>
+                          <% end %>
+                        </div>
+                        <br>
+                        <% if hash[:votes][:vote_users].size > 6 %>
+                          <span class="text-xs text-justify font-bold"> + <%= hash[:votes][:vote_users].size - 6 %> </span>
                         <% end %>
-                      <% end %>
                       </div>
-                      <br>
-                      <% if hash[:votes][:vote_users].size > 6 %>
-                        <span class="text-xs text-justify font-bold"> + <%= hash[:votes][:vote_users].size - 6 %> </span>
-                      <% end %>
-                    </div>
                     </div>
                     <div class="grow"></div>
                   </div>
@@ -138,7 +138,7 @@
             <% else %>
               <div class="flex w-100">
                 <img src="https://image.tmdb.org/t/p/w500<%= hash[:movie].poster_url %>" alt="<%= hash[:movie].name %>" class="h-10 rounded-l-md">
-                <div class="bg-zinc-900 grow px-4 py-3 rounded-r-md flex items-center">
+                <div class="bg-zinc-900 grow px-4 py-1 rounded-r-md flex items-center h-10">
                   <div class="flex flex-col gap-y-2">
                     <h3 class=text-base><%= hash[:movie].name.truncate(25) %></h3>
                   </div>
@@ -165,5 +165,4 @@
       data-map-api-key-value="<%= ENV['MAPBOX_API_KEY'] %>">
     </div>
 
-
-</div>
+  </div>
