@@ -40,6 +40,10 @@
     @apply bg-zinc-800;
     /* @apply rounded-md; */
   }
+}
+  .text {
+    @apply font-header uppercase text-sm;
+  }
 
   @layer utilities {
     .mask-gradient {

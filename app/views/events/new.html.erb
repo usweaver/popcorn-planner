@@ -1,6 +1,6 @@
 <div data-controller = "next-form">
 
-  <div class="fixed w-full top-28 left-0">
+  <div class="fixed w-full top-28 left-0 z-50">
     <div id="progress-bar" class="bg-white rounded-xl shadow-sm overflow-hidden p-1 mx-2">
       <div class="relative h-6 flex items-center justify-center">
         <div class="absolute top-0 bottom-0 left-0 rounded-lg w-[0%] bg-yellow-400 duration-700" data-next-form-target = "percentBar"></div>
@@ -71,9 +71,6 @@
       <template data-movies-event-target="cardTemplate">
         <div id="card" class="relative">
           <img src="" alt="" id="img" >
-          <%# <svg class="font-bold size-6 text-yellow-400 mr-2 absolute top-2 right-2  group-data-[selected=true]:block shadow" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
-          </svg> %>
         </div>
       </template>
 
@@ -81,17 +78,15 @@
         <div data-movies-event-target="cardContainer" class="grid grid-cols-3 gap-4 mb-4">
         </div>
 
-        <div id="divCardContainer" class="bg-zinc-800 rounded-lg p-2 mt-4 mb-4" >
-          <div class="grid grid-cols-6 gap-2" id="selected-card-container" data-movies-event-target="panier">
-          </div>
+        <div id="divCardContainer" class="bg-zinc-800 rounded-lg p-2 mt-4 mb-4 w-full h-24 flex justify-center items-center" >
         </div>
 
         <div class="button">
           <div data-action="click->next-form#nextFormCreate">suivant</div>
         </div>
       </div>
-
     </div>
+
     <div data-next-form-target="recap"></div>
     <div id="event-create" class="hidden flex items-center">
       <%= f.submit "créer l'évènement", class: "button" %>
