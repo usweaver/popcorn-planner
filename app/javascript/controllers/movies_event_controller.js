@@ -100,14 +100,9 @@ export default class extends Controller {
       }
     )
 
-    console.log("ADD FILM", this.selectedMovies);
-
     if (this.selectedMovies.length === 1) {
-      console.log("JE dois add ma div")
-      console.log("div", this.divCardContainer)
       this.divCardContainer.innerText = ""
       this.divCardContainer.insertAdjacentHTML('beforeend', '<div class="grid grid-cols-6 gap-2" id="selected-card-container" data-movies-event-target="panier">');
-
     }
 
     const selectedCardContainer = document.getElementById("selected-card-container")
@@ -125,7 +120,7 @@ export default class extends Controller {
 
     movie.classList.add("outline", "outline-yellow-400")
     movie.classList.add("pointer-events-none")
-    movie.closest('div').insertAdjacentHTML("afterbegin", '<div class= "absolute left-20 bg-zinc-800 rounded-full w-3 h-3 flex items-center justify-center top-2.5"><i class="fa-solid fa-circle-check text-yellow-400 text-md"></i></div>')
+    movie.closest('div').insertAdjacentHTML("afterbegin", '<div id="checkBox" class= "absolute right-2.5 bg-zinc-800 rounded-full w-3 h-3 flex items-center justify-center top-2.5"><i class="fa-solid fa-circle-check text-yellow-400 text-md"></i></div>')
 
     if (this.selectedMovies.length > 0) {
       divCardContainer.classList.remove("hidden")
@@ -138,12 +133,13 @@ export default class extends Controller {
     const img = event.currentTarget.closest(".divMark")
     const nameMovie = img.dataset.name
     const movie = document.querySelectorAll(`[data-title="${nameMovie}"]`)[1];
+    const checkBox = document.getElementById("checkBox")
 
+    checkBox.remove()
     movie.classList.remove("outline", "outline-yellow-400")
     movie.classList.remove("pointer-events-none")
     this.selectedMovies = this.selectedMovies.filter((movie) => movie.title !== nameMovie)
     img.remove()
-    console.log(this.selectedMovies);
     this.getString()
 
     if (this.selectedMovies.length === 0) {
