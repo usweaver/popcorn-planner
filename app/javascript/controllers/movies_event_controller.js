@@ -133,7 +133,7 @@ export default class extends Controller {
     const img = event.currentTarget.closest(".divMark")
     const nameMovie = img.dataset.name
     const movie = document.querySelectorAll(`[data-title="${nameMovie}"]`)[1];
-    const checkBox = document.getElementById("checkBox")
+    const checkBox = movie.closest("div").querySelector("div")
 
     checkBox.remove()
     movie.classList.remove("outline", "outline-yellow-400")
