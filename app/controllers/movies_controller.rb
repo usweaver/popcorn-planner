@@ -30,9 +30,9 @@ class MoviesController < ApplicationController
   end
 
   def vote
-    event = Event.find(params[:event_id])
-    movie_event = event.movie_events.find_by(movie: params[:id])
-    vote = event.votes.find_by(user: current_user)
+    @event = Event.find(params[:event_id])
+    movie_event = @event.movie_events.find_by(movie: params[:id])
+    vote = @event.votes.find_by(user: current_user)
     vote.movie_event = movie_event
     vote.save!
 
@@ -46,8 +46,8 @@ class MoviesController < ApplicationController
     # selected_movie_event = Movie_event.find(selected_movie_event_id)
     # selected_movie_event.selected_movie = true
     # selected_movie_event.save!
-    movie = Movie.find(params[:id])
-    flash[:notice] = "Votre vote pour #{movie.name} est bien pris en compte."
-    redirect_to event_path(event)
+    @movie = Movie.find(params[:id])
+    flash[:notice] = "Votre vote pour #{@movie.name} est bien pris en compte."
+    redirect_to event_path(@event)
   end
 end

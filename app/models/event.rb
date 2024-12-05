@@ -26,10 +26,10 @@ class Event < ApplicationRecord
   # Démarrer l'evennement
   # 1. Créer pour chaque utilisateur une instance de vote et de movie event qui lui appartient
   def launch
-    Vote.create(
-      user: user,
-      event: self
-    )
+    # Vote.create(
+    #   user: user,
+    #   event: self
+    # )
     guests.each do |gest|
       Vote.create(
         user: gest,
