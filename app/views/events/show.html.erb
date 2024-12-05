@@ -1,15 +1,3 @@
-<% if session[:show_confetti] %>
-  <script>
-    // Utilisation d'une librairie comme Canvas Confetti ou Party.js
-    confetti({
-      particleCount: 100,
-      spread: 70,
-      origin: { y: 0.6 }
-    });
-  </script>
-  <% session[:show_confetti] = nil %> <!-- Réinitialiser après affichage -->
-<% end %>
-
 <%movie_selected_path = @movies.find(@event.movie_events[0]["movie_id"])%>
 <%info_user_path = @users.find(@event.user_id) %>
 
@@ -29,16 +17,10 @@
 
     </div>
 
-    <div class="flex flex-row mb-3 items-center gap-x-2">
+    <div class="flex flex-row mb-3">
 
-      <div class="flex flex-row -space-x-2 items-center">
-        <% @event.group.users.first(6).each do |user| %>
-          <%= cl_image_tag user.profile_picture.key, height: 44, width: 44, crop: :fill, class: "w-11 h-11 bg-zinc-400 rounded-full flex items-center justify-center border border-yellow-400" %>
-
-        <% end %>
-      </div>
-      <% if @event.group.users.size > 6 %>
-        <span class="text-sm text-justify font-bold">+ <%= @event.group.users.size - 6 %> autres</span>
+      <%@event.group.users.each do |user|%>
+        <%= image_tag(url_for(user.profile_picture), class: "rounded-full size-8 ring-1 ring-yellow-400 shadow-sm") if user.profile_picture.attached? %>
       <% end %>
 
     </div>
@@ -54,11 +36,12 @@
         <% @event.list_movies.each do |movie| %>
           <%= link_to vote_movie_path(movie, event_id: @event.id), data: {turbo_method: :patch} do %>
             <div class="flex w-100">
-              <img src="https://image.tmdb.org/t/p/w500<%= movie.poster_url %>" alt="<%= movie.name %>" class="h-28 rounded-l-md">
+              <img src="https://image.tmdb.org/t/p/w500<%= movie.poster_url %>" alt="<%= movie.name %>" class="h-28 rounded-l-md
+">
               <div class="bg-zinc-900 grow px-4 py-3 rounded-r-md flex items-center">
                 <div class="flex flex-col gap-y-2">
-                  <h3><%= movie.name.truncate(40) %></h3>
-                  <p class="text-xs"><%= movie.synopsis.truncate(70) %></p>
+                  <h3><%= movie.name.truncate(33) %></h3>
+                  <p class="text-xs"><%= movie.synopsis.truncate(58) %></p>
                 </div>
                 <div class="grow"></div>
                 <i class="fa-solid fa-check-to-slot text-yellow-400 mx-2"></i>
@@ -74,13 +57,27 @@
       <div class="w-100 flex flex-col gap-y-4">
         <% @ordered_movies.each_with_index do |hash, index| %>
           <% if index == 0 %>
-            <% percentage = ((hash[:votes] / @event.votes.count.to_f) * 100).round(0) %>
+            <% percentage = ((hash[:votes][:votes_count] / @event.votes.count.to_f) * 100).round(0) %>
             <div class="flex w-100">
               <img src="https://image.tmdb.org/t/p/w500<%= hash[:movie].poster_url %>" alt="<%= hash[:movie].name %>" class="h-40 rounded-l-md">
               <div class="flex flex-col grow ">
                 <div class="bg-zinc-900 grow px-4 py-3 flex items-center relative rounded-tr-md">
                   <div class="flex flex-col gap-y-2">
                     <h3><%= hash[:movie].name %></h3>
+                    <div class="flex">
+                      <div class="flex -space-x-1">
+                        <% hash[:votes][:vote_users].each do |user| %>
+                          <% if user.profile_picture.attached? %>
+                            <%= cl_image_tag user.profile_picture.key, height: 28, width: 28, crop: :fill, class: "size-5 bg-zinc-400 rounded-full flex items-center justify-center border border-yellow-400" %>
+                          <% else %>
+                            <%= image_tag "default_image.png", class: "size-5 bg-zinc-400 rounded-full flex items-center justify-center border border-yellow-400 " %>
+                          <% end %>
+                        <% end %>
+                      </div>
+                      <% if hash[:votes][:vote_users].size > 6 %>
+                        <span class="text-xs text-justify font-bold content-center ml-1"> + <%= hash[:votes][:vote_users].size - 6 %> </span>
+                      <% end %>
+                    </div>
                   </div>
                   <div class="grow"></div>
                   <i class="fa-solid fa-trophy text-yellow-400 mr-2"></i>
@@ -93,14 +90,29 @@
               </div>
             </div>
           <% else %>
-            <% percentage = ((hash[:votes] / @event.votes.count.to_f) * 100).round(0) %>
+            <% percentage = ((hash[:votes][:votes_count] / @event.votes.count.to_f) * 100).round(0) %>
             <% if percentage != 0 %>
               <div class="flex w-100">
                 <img src="https://image.tmdb.org/t/p/w500<%= hash[:movie].poster_url %>" alt="<%= hash[:movie].name %>" class="h-20 rounded-l-md">
                 <div class="flex flex-col grow ">
-                  <div class="bg-zinc-900 grow px-4 py-3 flex items-center relative rounded-tr-md">
-                    <div class="flex flex-col gap-y-2">
-                      <h3><%= hash[:movie].name %></h3>
+                  <div class="bg-zinc-900 grow px-4 py-1 flex items-center relative rounded-tr-md">
+                    <div class="flex flex-col gap-y-1">
+                      <h3 class="text-base leading-none"><%= hash[:movie].name %></h3>
+                    <div class="flex">
+                    <div class="flex -space-x-1">
+                      <% hash[:votes][:vote_users].each do |user| %>
+                        <% if user.profile_picture.attached? %>
+                          <%= cl_image_tag user.profile_picture.key, height: 28, width: 28, crop: :fill, class: "size-4 bg-zinc-400 rounded-full flex items-center justify-center border border-yellow-400" %>
+                        <% else %>
+                          <%= image_tag "default_image.png", class: "size-5 bg-zinc-400 rounded-full flex items-center justify-center border border-yellow-400 " %>
+                        <% end %>
+                      <% end %>
+                      </div>
+                      <br>
+                      <% if hash[:votes][:vote_users].size > 6 %>
+                        <span class="text-xs text-justify font-bold"> + <%= hash[:votes][:vote_users].size - 6 %> </span>
+                      <% end %>
+                    </div>
                     </div>
                     <div class="grow"></div>
                   </div>
@@ -116,7 +128,7 @@
                 <img src="https://image.tmdb.org/t/p/w500<%= hash[:movie].poster_url %>" alt="<%= hash[:movie].name %>" class="h-10 rounded-l-md">
                 <div class="bg-zinc-900 grow px-4 py-3 rounded-r-md flex items-center">
                   <div class="flex flex-col gap-y-2">
-                    <h3><%= hash[:movie].name.truncate(25) %></h3>
+                    <h3 class=text-base><%= hash[:movie].name.truncate(25) %></h3>
                   </div>
                   <div class="grow"></div>
                 </div>
@@ -130,7 +142,7 @@
   </div>
   <div class="bg-zinc-800 p-2 rounded-md">
 
-    <h2 class="mb-3"><i class="fa-solid fa-location-dot mr-1 text-zinc-400"></i> Lieu</h2>
+    <h2 class="mb-3"><i class="fa-solid fa-location-dot mr-1"></i>Lieu</h2>
 
     <h3><%=info_user_path.address%></h3>
     <p class="mb-3 font-bold"><%=info_user_path.zipcode%> <%=info_user_path.city%></p>
@@ -140,4 +152,6 @@
       data-map-markers-value="<%= @markers.to_json %>"
       data-map-api-key-value="<%= ENV['MAPBOX_API_KEY'] %>">
     </div>
-  </div>
+
+
+</div>
