@@ -23,7 +23,7 @@ export default class extends Controller {
     this.divCardContainer = document.getElementById("divCardContainer")
 
     if (this.selectedMovies.length === 0) {
-      divCardContainer.innerHTML = "<p> Aucun film sélectionné </p>"
+      divCardContainer.innerHTML = '<p class="text"> Aucun film sélectionné </p>'
     }
   }
 
@@ -147,7 +147,7 @@ export default class extends Controller {
     this.getString()
 
     if (this.selectedMovies.length === 0) {
-      this.divCardContainer.innerHTML = "<p> Aucun film sélectionné </p>"
+      this.divCardContainer.innerHTML = '<p class="text"> Aucun film sélectionné </p>'
     }
   }
 
