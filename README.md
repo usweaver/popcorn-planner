@@ -10,11 +10,11 @@ We were free to experiment with various tools, but **Ruby on Rails** was the cor
 
 ### Frameworks:  
 - **Ruby on Rails** – Backend logic and application framework  
-- **Stimulus JS** – Lightweight JavaScript for interactivity  
-- **Tailwind CSS** – Utility-first CSS framework for responsive design  
+- **Stimulus JS** – Lightweight JavaScript framework
+- **Tailwind CSS** – Utility-first CSS framework
 
 ### Gems:  
-- **Devise** – User authentication made easy  
+- **Devise** – User authentication
 - **pg_search** – Advanced search functionality  
 - **Geocoder** – Geolocation and maps integration  
 
